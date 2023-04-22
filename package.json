@@ -6,12 +6,15 @@
   "private": true,
   "scripts": {
     "build": "d2-app-scripts build",
-    "start": "d2-app-scripts start --proxy https://play.dhis2.org/2.39.1.1",
+    "start": "dotenv -- cross-var d2-app-scripts start --proxy %DHIS2_PROXY_URL%",
     "test": "d2-app-scripts test",
     "deploy": "d2-app-scripts deploy"
   },
   "devDependencies": {
-    "@dhis2/cli-app-scripts": "^10.3.6"
+    "@dhis2/cli-app-scripts": "^10.3.6",
+    "cross-var": "^1.1.0",
+    "dotenv": "^16.0.3",
+    "dotenv-cli": "^7.2.1"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.9.0"
