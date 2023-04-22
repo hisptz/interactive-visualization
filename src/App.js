@@ -1,13 +1,12 @@
 import React from 'react'
 import classes from './App.module.css';
-import {WelcomePage} from "./pages/WelcomePage";
-
+import {Routing} from "./pages/Routing";
 
 
 const MyApp = () => (
     <div className={classes.container}>
-        <WelcomePage/>
-    </div>
+        <Routing/>
+     </div>
 )
 
 export default MyApp

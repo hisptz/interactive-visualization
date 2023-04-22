@@ -17,6 +17,10 @@
     "dotenv-cli": "^7.2.1"
   },
   "dependencies": {
-    "@dhis2/app-runtime": "^3.9.0"
+    "@dhis2/app-runtime": "^3.9.0",
+    "react-pivottable": "^0.11.0",
+    "react-plotly.js": "^2.6.0",
+    "react-router": "^6.10.0",
+    "react-router-dom": "^6.10.0"
   }
 }
