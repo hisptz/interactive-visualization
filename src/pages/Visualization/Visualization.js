@@ -2,7 +2,7 @@ import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
 import TableRenderers from 'react-pivottable/TableRenderers';
 import {useState} from 'react';
-import {Button} from "@dhis2/ui";
+import {Button, DropdownButton, FlyoutMenu, MenuItem} from "@dhis2/ui";
 import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
 import {useParams} from "react-router";
@@ -23,14 +23,73 @@ export function Visualization() {
     const [state, setState] = useState({});
     return (
         <div>
-            <Button onClick={()=> navigate(-1)} >Back</Button>
-            <h1>Visualization for {id}, {params.pe} {params.ou}!</h1>
+            <h1 style={{
+                    left: '30px',
+                    top: '60px',
+                    position: 'absolute',
+                }}>Visualization for {id}, {params.pe} {params.ou}!</h1>
             <PivotTableUI
                 data={data}
                 onChange={s => setState(s)}
                 renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
                 {...state}
             />
-        </div>
+
+            <div id='gobackbutton'
+                style={{
+                    left: '30px',
+                    top: '60px',
+                    position: 'absolute',
+                }}>
+                    
+                <Button onClick={()=> navigate(-1)} name="Basic button" value="default">
+                    Go Back
+                </Button>
+            </div>
+
+
+            <div id='topbutton'
+                style={{
+                    display: 'flex',
+                    left: '0px',
+                    top: '120px',
+                    position: 'absolute',
+                    paddingLeft: '25px',
+                }}>
+                <Button
+                    style={{
+                        paddingLeft: '100px',position:'absolute',
+                    }}
+                    disabled name="Disabled button"
+                    value="default">
+                    Save
+                </Button>
+                <DropdownButton
+                component={<FlyoutMenu><MenuItem label="PNG" /><MenuItem label="PDF" /></FlyoutMenu>}
+                name="buttonName"
+                value="buttonValue"
+                disabled ="Disabled button"
+                >
+                Export
+                </DropdownButton>
+                <Button
+                    disabled name="Disabled button"
+                    value="default">
+                    Settings
+                </Button>
+                <Button
+                    disabled name="Disabled button"
+                    value="default">
+                    Save to Dashboard
+                </Button>
+            </div>
+
+
+    </div>
+
+
+
+
+        
     )
 }

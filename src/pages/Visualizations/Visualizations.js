@@ -7,6 +7,8 @@ export function Visualizations() {
         <div>
             <h1>Visualizations</h1>
             <Button onClick={() => navigate('45')}>Go to one visualization</Button>
+            
+
         </div>
     )
 }
