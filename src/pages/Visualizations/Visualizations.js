@@ -5,7 +5,7 @@ export function Visualizations() {
     const navigate = useNavigate();
     return (
         <div>
-            <h1>Visualizations</h1>
+            <h1>Visualization</h1>
             <Button onClick={() => navigate('45')}>Go to one visualization</Button>
             
 
