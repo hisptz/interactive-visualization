@@ -8,7 +8,6 @@ import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
 import {useParams} from "react-router";
 import {useNavigate} from "react-router-dom";
 
-
 // create Plotly React component via dependency injection
 const Plot = createPlotlyComponent(window.Plotly);
 
@@ -23,7 +22,6 @@ export function Visualization() {
     const id = params.id;
     const [state, setState] = useState({});
     return (
-
         <div
             style={{
                     backgroundColor: 'darkgray',
@@ -41,7 +39,7 @@ export function Visualization() {
                     top: '60px',
                     position: 'absolute',
                 }}>
-                    
+
                 <Button onClick={()=> navigate(-1)} name="Basic button" value="default">
                     Go Back
                 </Button>
@@ -52,7 +50,7 @@ export function Visualization() {
 
             <div
                 style={{
-                    backgroundColor: 'white',
+                    backgroundColor: 'whitesmoke',
                     border: '1px solid 1px solid 1px solid #C5E3FC',
                     boxShadow: '0px 0px 5px 5px rgba(0,0,0,0.2)',
                     height: '84%',
@@ -110,5 +108,10 @@ export function Visualization() {
                 />
             </div>
     </div>
+
+
+
+
+
     )
 }
