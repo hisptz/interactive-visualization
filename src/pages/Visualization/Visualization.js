@@ -39,7 +39,7 @@ export function Visualization() {
                     top: '60px',
                     position: 'absolute',
                 }}>
-                    
+
                 <Button onClick={()=> navigate(-1)} name="Basic button" value="default">
                     Go Back
                 </Button>
@@ -112,6 +112,6 @@ export function Visualization() {
 
 
 
-        
+
     )
 }
