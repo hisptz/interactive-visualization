@@ -23,7 +23,7 @@ export function Visualization() {
     const [state, setState] = useState({});
     return (
 
-        <div
+        <div id='main'
         style={{
             height: "100%",
             width: "100%",
@@ -34,7 +34,7 @@ export function Visualization() {
             justifyContent: "center",
             }}>
 
-                <div
+                <div id='back_button'
                 style={{
                     position: 'absolute',
                     top: 35,
@@ -48,7 +48,7 @@ export function Visualization() {
 
 
 
-                <div>
+                <div id='datatitle'>
                 <h1 style={{
                     left: 120,
                     top: 43,
@@ -58,7 +58,7 @@ export function Visualization() {
 
                 </div>
 
-                <div
+                <div id='plotly_layout'
                 style={{
                     height: "88%",
                     width: "96%",
@@ -71,7 +71,7 @@ export function Visualization() {
                     boxShadow: '0px 0px 5px 5px rgba(0,0,0,0.3)',
                 }}>
 
-                <div
+                <div id='topbuttons'
                 style={{
                     display: 'flex',
                     flexdirection: 'row',
@@ -105,7 +105,7 @@ export function Visualization() {
 
 
 
-                <div style={{backgroundColor:'greenyellow'}}>
+                <div id='plotly' style={{backgroundColor:'greenyellow'}}>
                 <PivotTableUI
                 data={data}
                 onChange={s => setState(s)}

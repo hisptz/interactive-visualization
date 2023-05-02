@@ -5,7 +5,7 @@ import { NoticeBox, Button, FileInputField, DataTable, TableHead, DataTableRow, 
 export function Visualizations() {
     const navigate = useNavigate();
     return (
-        <div 
+        <div id='main' 
         style={{
             height: "100%",
             width: "100%",
@@ -18,7 +18,7 @@ export function Visualizations() {
 
 
 
-        <div
+        <div id='noticebox'
         style={{
             width: '96%',
             textAlign:'justify',
@@ -33,7 +33,7 @@ export function Visualizations() {
 
         </NoticeBox>
 
-        <div
+        <div id='image'
         style={{
           display: 'flex',
           justifyContent: 'right',
@@ -46,7 +46,7 @@ export function Visualizations() {
 
         </div>
 
-        <div
+        <div id='data_table'
                  style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -115,7 +115,7 @@ export function Visualizations() {
                 </div>
         </div>
 
-            <div
+            <div id='temporary'
                 style={{
                     left: '50%',
                     top: '90%',
