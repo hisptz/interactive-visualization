@@ -28,12 +28,10 @@ export function Visualization() {
             height: "100%",
             width: "100%",
             backgroundColor: "#F5F5F5",
-            //color: "#fffff",
-            //fontSize: "24px",
             textAlign: "center",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
             }}>
 
                 <div
@@ -56,7 +54,6 @@ export function Visualization() {
                     top: 43,
                     position: 'absolute',
                     fontSize: '18px',
-                    //alignItems:'center'
                 }}>This will display the title of the data file Visualized {id},to {params.pe} {params.ou}!</h1>
 
                 </div>
@@ -66,8 +63,6 @@ export function Visualization() {
                     height: "88%",
                     width: "96%",
                     backgroundColor: "white",
-                    //color: "#fffff",
-                    //fontSize: "24px",
                     textAlign: "center",
                     display: "flex",
                     alignItems: "center",
@@ -78,11 +73,16 @@ export function Visualization() {
 
                 <div
                 style={{
-                    position: 'absolute', 
-                    top: '14%', 
-                    left: '3%', 
-                    gap:'7',
-                    display: 'flex'
+                    display: 'flex',
+                    flexdirection: 'row',
+                    alignitems: 'flex-start',
+                    padding: '5px 10px',
+                    gap: '10px',
+                    position: 'absolute',
+                    width: '56px',
+                    height: '36px',
+                    left: '30px',
+                    top: '100px',
                     }}>
                 <Button name="Small button" small value="default" > Save </Button>
 
@@ -105,23 +105,18 @@ export function Visualization() {
 
 
 
-                <div id='pivot' style={{backgroundColor:'greenyellow'}}>
+                <div style={{backgroundColor:'greenyellow'}}>
                 <PivotTableUI
                 data={data}
                 onChange={s => setState(s)}
                 renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
                 {...state}
          />    
-
-                
-        
-
         </div>
 
+    </div>
 
-                </div>
-
-        </div>
+</div>
 
 
 

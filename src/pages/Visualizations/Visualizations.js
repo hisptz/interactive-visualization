@@ -1,65 +1,58 @@
 import { useNavigate } from 'react-router-dom';
-import files from '../../files.png';
+import files from '../../file2.png';
 import { NoticeBox, Button, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
-
-function FileInputPage() {
-    const history = useHistory();
-    const [selectedFile, setSelectedFile] = useState(null);
-
-    const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
-        history.push('/new-page'); // Navigate to a new page when a file is selected
-    }
-
-    return (
-        <div id= 'wrap'>
-            <form>
-                <label htmlFor="uploadName">Choose a file:</label>
-                <input
-                    type="file"
-                    id="uploadName"
-                    name="uploadName"
-                    onChange={handleFileChange}
-                />
-            </form>
-        </div>
-    );
-}
 
 export function Visualizations() {
     const navigate = useNavigate();
     return (
-        <div>
-        <div>
-            <div id='forbox'
+        <div 
+        style={{
+            height: "100%",
+            width: "100%",
+            backgroundColor: "#F5F5F5",
+            fontSize: "24px",
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            }}>
+
+
+
+        <div
+        style={{
+            width: '96%',
+            textAlign:'justify',
+            padding: "10px 0px",
+            justifyContent:'end'
+        }}>
+        <NoticeBox title="Information">
+            Upload a Data file to generate a Visualization
+        <FileInputField
+        //helpText="Please select any file type"
+        name="uploadName"/>
+
+        </NoticeBox>
+
+        <div
+        style={{
+          display: 'flex',
+          justifyContent: 'right',
+          alignItems: 'center',
+          marginRight: 70,
+          marginTop:30
+
+        }}>
+            <img src={files} width={'350px'} alt="DVT" />
+
+        </div>
+
+        <div
                  style={{
-                     width: '96%',
-                     left: '2%',
-                     top: '70px',
-                     position: 'absolute',
-                 }}>
-                <NoticeBox title="Information">
-
-                    Upload data file to generate a visualization
-
-                    <div id='foruploadbtn'
-                         style={{
-                             //height: '10%',
-                             left: '80%',
-                             top: '0px',
-                             position: 'absolute',
-                             padding: "10px 20px",
-                         }}>
-                        <FileInputField name="uploadName" />
-                    </div>
-                </NoticeBox>
-            </div>
-
-            <div id='fortable'
-                 style={{
-                     left: '1cm',
-                     top: '200px',
-                     position: 'absolute'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'absolute',
+                    width: '800px',
+                    top: '250px',
                  }}>
                 <DataTable>
                     <TableHead>
@@ -119,38 +112,8 @@ export function Visualizations() {
                         </DataTableRow>
                     </TableBody>
                 </DataTable>
-
-
-                <div
-                    style={{
-                        left: '130%',
-                        top: '0%',
-                        position: 'absolute',
-                        width: '450px',
-                    }}
-                >
-                    <div style={{ position: 'relative' }}>
-                        <img src={files} width={'350px'} alt="DVT" />
-                        <h4 style={{
-                            position: 'absolute',
-                            left: '50%',
-                            top: '100%',
-                            transform: 'translateX(-50%)',
-                            width: '350px'
-                        }}>
-                            Welcome to <span style={{ fontWeight: 'bold' }}>Interactive Visualization</span>!
-                        </h4>
-                    </div>
-
                 </div>
-
-
-
-
-
-
-            </div>
-
+        </div>
 
             <div
                 style={{
@@ -158,9 +121,11 @@ export function Visualizations() {
                     top: '90%',
                     position: 'absolute'
                 }}>
-            <Button onClick={() => navigate('45')}>Go to one visualization</Button>
+                <Button onClick={() => navigate('45')}>Go to one visualization</Button>
             </div>
-</div>
+
+
         </div>
+
     )
 }
