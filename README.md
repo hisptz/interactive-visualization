@@ -1,5 +1,33 @@
 This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
 
+### `Steps to run the project`
+
+1. Clone the project
+2. Navigate to the directory 'interactive-visualization'
+3. Run 'yarn' to install all the dependencies
+4. Create an .env file in the same path as that of the .env.example
+5. Fill the credentials of the Proxy and Server as required
+6. Run 'yarn start' to start the project  
+
+
+
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
+### `yarn test`
+
+Launches the test runner and runs all available tests found in `/src`.<br />
+
+See the section about [running tests](https://platform.dhis2.nu/#/scripts/test) for more information.
+
+
+
+
+
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
