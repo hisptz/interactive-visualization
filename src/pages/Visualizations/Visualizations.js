@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import files from '../../file2.png';
+import files from '../../files.png';
 import { NoticeBox, Button, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
 
 export function Visualizations() {
