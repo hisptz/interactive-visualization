@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import files from '../../file2.png';
+import files from '../../files.png';
 import { NoticeBox, Button, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
 
 export function Visualizations() {
@@ -29,8 +29,10 @@ export function Visualizations() {
             Upload a Data file to generate a Visualization
         <FileInputField
         //helpText="Please select any file type"
+        // onChange={()=>{
+        //     const fileReader = new FileReader();
+        // }}
         name="uploadName"/>
-
         </NoticeBox>
 
         <div id='image'
