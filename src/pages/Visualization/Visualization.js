@@ -1,16 +1,21 @@
 import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
-import TableRenderers from 'react-pivottable/TableRenderers';
+//import TableRenderers from 'react-pivottable/TableRenderers';
 import {useState} from 'react';
 import {Button, DropdownButton, FlyoutMenu, MenuItem} from "@dhis2/ui";
-import createPlotlyComponent from 'react-plotly.js/factory';
+//import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
 import {useParams} from "react-router";
 import {useNavigate} from "react-router-dom";
 import Plot from 'react-plotly.js';
+//import styles from '../../App.module.css';
+import {container} from "plotly.js/src/traces/scatter/marker_colorbar";
+
+
+
 // create Plotly React component via dependency injection
 // const Plot = createPlotlyComponent(window.Plotly);
-
+// "Visualize1", "Visualize2","Visualize3","Visualize4","Visualize5"
 // create Plotly renderers via dependency injection
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 const data = [
@@ -259,8 +264,8 @@ const data = [
     [22.67,2,"Male","Smoker","Saturday","Dinner",2],
     [17.82,1.75,"Male","Non-Smoker","Saturday","Dinner",2],
     [18.78,3,"Female","Non-Smoker","Thursday","Dinner",2]
-    ];
-    
+];
+
 
 
 
@@ -270,115 +275,94 @@ export function Visualization() {
     const id = params.id;
     const [state, setState] = useState({});
 
-        return (
-
-        <div id='main'
-        style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: "#F5F5F5",
-            textAlign: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+    return (
+        <div>
+            <div id="1" style={{
+                paddingLeft:10,
+                paddingTop:10,
             }}>
-
-                <div id='back_button'
-                style={{
-                    position: 'absolute',
-                    top: 35,
-                    left: 0,
-                    margin: '1em',
-                }}>
-                <Button onClick={()=> navigate(-1)} name="Small button" small value="default">
+                <Button onClick={()=> navigate(-1)} name="Basic button" value="default">
                     Go Back
                 </Button>
-                </div>
+                <div id="2"
+                     style={{
+                         alignItems:"center",
+                         justifyContent:"center",
+                         fontSize: '13px',
+                     }}>
+                    <h1 style={{
+                        paddingLeft:100,
+                        marginTop:1,
+                        justifyContent:"center",
+                        display:"flex"
+                    }}>This will display the title of the data file Visualized {id},to {params.pe} {params.ou}!</h1>
 
 
-
-                <div id='datatitle'>
-                <h1 style={{
-                    left: 120,
-                    top: 43,
-                    position: 'absolute',
-                    fontSize: '18px',
-                }}>This will display the title of the data file Visualized {id},to {params.pe} {params.ou}!</h1>
-
-                </div>
-
-                <div id='plotly_layout'
-                style={{
-                    height: "88%",
-                    width: "96%",
-                    backgroundColor: "white",
-                    textAlign: "center",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: '1px solid 1px solid 1px solid #C5E3FC',
-                    boxShadow: '0px 0px 5px 5px rgba(0,0,0,0.3)',
-                }}>
-
-                <div id='topbuttons'
-                style={{
-                    display: 'flex',
-                    flexdirection: 'row',
-                    alignitems: 'flex-start',
-                    padding: '5px 10px',
-                    gap: '10px',
-                    position: 'absolute',
-                    width: '56px',
-                    height: '36px',
-                    left: '30px',
-                    top: '100px',
+                    <div style={{
+                        display:"flex",
+                        justifyContent:"center",
+                        position: "relative",
+                        paddingBottom:20,
+                        //width:'100%',
+                        margin: '10px 50px 10px 50px',
                     }}>
-                <Button name="Small button" small value="default" > Save </Button>
 
-                <DropdownButton
-                component={
-                <FlyoutMenu>
-                    <MenuItem label="PNG" />
-                    <MenuItem label="PDF" /> 
-                </FlyoutMenu>
-                           }
-                name="buttonName"
-                small value="buttonValue"> Export
-                 </DropdownButton>
+                        <div id="3" style={{
+                            backgroundColor: "#F5F5F5",
+                            border: '1px solid 1px solid 1px solid #C5E3FC',
+                            boxShadow: '0px 0px 7px 7px rgba(0,0,0,0.3)',
+                            position:"relative",
+                            padding: '5px 10px 5px 5px',
+                            margin: '10px 50px 10px 50px',
 
-                <Button name="Small button" small value="default" > Settings </Button>
+                        }}>
 
-                <Button name="Small button" small value="default" > Save to Dashboard </Button>
+                            <div id='topbutton'
+                                 style={{
+                                     display:"flex",
+                                     gap:10,
+                                     position: "relative",
+                                     paddingBottom:5,
+                                     paddingLeft:5,
+                                     paddingTop:5
+                                 }}>
+                                <Button
+                                    style={{
+                                        paddingLeft: '100px',position:'absolute',
+                                    }}
+                                    disabled name="Disabled button"
+                                    value="default">
+                                    Save
+                                </Button>
+                                <DropdownButton
+                                    component={<FlyoutMenu><MenuItem label="PNG" /><MenuItem label="PDF" /></FlyoutMenu>}
+                                    name="buttonName"
+                                    value="buttonValue"
+                                    disabled ="Disabled button"
+                                >
+                                    Export
+                                </DropdownButton>
+                                <Button
+                                    disabled name="Disabled button"
+                                    value="default">
+                                    Settings
+                                </Button>
+                                <Button
+                                    disabled name="Disabled button"
+                                    value="default">
+                                    Save to Dashboard
+                                </Button>
+                            </div>
+                            <PivotTableUI
+                                data={data}
+                                onChange={s => setState(s)}
+                                renderers={Object.assign({},  PlotlyRenderers)}
+                                {...state}
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-
-
-                <div id='plotly' style={{width: 1100, height: 300}}>
-                <PivotTableUI
-                
-                data={data}
-                onChange={s => setState(s)}
-                renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
-                {...state}
-         />    
         </div>
-
-    </div>
-
-</div>
-
-
-
-
-
-
-
-        
-
-
-
-
-
     )
 }
