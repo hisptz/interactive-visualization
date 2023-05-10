@@ -269,8 +269,23 @@ export function Visualization() {
     const navigate = useNavigate();
     const id = params.id;
     const [state, setState] = useState({});
+<<<<<<< HEAD
+    const [loading, setLoading] = useState(false);
+
+
+    const handleSave = () =>{
+        // API calls to save files to the db go here
+        setLoading(true);
+        setTimeout(()=>setLoading(false), 10000)
+    }
+    const handleSettingButton = (label)=>{
+        console.log(label);
+    }
+    return (
+=======
 
         return (
+>>>>>>> 745e85cba391afef5a7f2308a19e9e7616a2c56d
 
         <div id='main'
         style={{
@@ -333,8 +348,8 @@ export function Visualization() {
                     left: '30px',
                     top: '100px',
                     }}>
-                <Button name="Small button" small value="default" > Save </Button>
-
+                <Button loading={loading} onClick={handleSave} name="SaveButton" small value="default" >{!loading?  "Save" : "Saving..." }</Button>
+ 
                 <DropdownButton
                 component={
                 <FlyoutMenu>
@@ -345,18 +360,29 @@ export function Visualization() {
                 name="buttonName"
                 small value="buttonValue"> Export
                  </DropdownButton>
+                 <DropdownButton small component={
+                    <FlyoutMenu dense>
+                        <MenuItem onClick={(color)=>handleSettingButton(color)} label="Color" />
+                        <MenuItem onClick={(status)=>handleSettingButton(status)} label="Status" />
+                    </FlyoutMenu>
+                    }>Settings</DropdownButton>
 
-                <Button name="Small button" small value="default" > Settings </Button>
+                {/* <Button name="Small button" small value="default" > Settings </Button> */}
 
-                <Button name="Small button" small value="default" > Save to Dashboard </Button>
+                <Button name="Small button" small value="default" > Dashboard </Button>
             </div>
 
 
 
 
+<<<<<<< HEAD
+                <div id='plotly' style={{backgroundColor:'greenyellow' }}>
+                <PivotTableUI 
+=======
                 <div id='plotly' style={{width: 1100, height: 300}}>
                 <PivotTableUI
                 
+>>>>>>> 745e85cba391afef5a7f2308a19e9e7616a2c56d
                 data={data}
                 onChange={s => setState(s)}
                 renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}

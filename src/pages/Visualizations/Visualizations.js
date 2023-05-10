@@ -29,8 +29,10 @@ export function Visualizations() {
             Upload a Data file to generate a Visualization
         <FileInputField
         //helpText="Please select any file type"
+        // onChange={()=>{
+        //     const fileReader = new FileReader();
+        // }}
         name="uploadName"/>
-
         </NoticeBox>
 
         <div id='image'
