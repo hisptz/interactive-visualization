@@ -269,7 +269,7 @@ export function Visualization() {
     const navigate = useNavigate();
     const id = params.id;
     const [state, setState] = useState({});
-<<<<<<< HEAD
+
     const [loading, setLoading] = useState(false);
 
 
@@ -282,11 +282,8 @@ export function Visualization() {
         console.log(label);
     }
     return (
-=======
 
-        return (
->>>>>>> 745e85cba391afef5a7f2308a19e9e7616a2c56d
-
+        
         <div id='main'
         style={{
             height: "100%",
@@ -375,14 +372,13 @@ export function Visualization() {
 
 
 
-<<<<<<< HEAD
-                <div id='plotly' style={{backgroundColor:'greenyellow' }}>
-                <PivotTableUI 
-=======
+
+               
+
                 <div id='plotly' style={{width: 1100, height: 300}}>
                 <PivotTableUI
                 
->>>>>>> 745e85cba391afef5a7f2308a19e9e7616a2c56d
+
                 data={data}
                 onChange={s => setState(s)}
                 renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
