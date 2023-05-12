@@ -1,9 +1,91 @@
-.container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
+.container{
+    /*line-height: 50px;*/
+    /*display: flex;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*font-size: 1rem;*/
 }
+
+.notice_box{
+    padding: 20px 20px;
+}
+
+.table{
+    padding: 20px 20px;
+    margin-right: 500px;
+    display: flex;
+}
+
+.upload{
+//padding-left: 500px;
+//overflow: visible;
+    appearance: none;
+    background-color: initial;
+    cursor: default;
+    align-items: baseline;
+    color: inherit;
+    text-overflow: ellipsis;
+    white-space: pre;
+    text-align: start !important;
+    padding: initial;
+    border: initial;
+    overflow: hidden !important;
+}
+
+/*.image{*/
+/*    display: flex;*/
+/*    position: absolute;*/
+/*    padding-left: 80px;*/
+/*    margin-left: 850px;*/
+/*}*/
+
+.back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: auto;
+    padding: 0.5rem;
+}
+
+
+
+/* THE STYLES FOR VISUALIZATION.JS FILE*/
+
+
+.goback {
+//display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    height: 40px;
+    left: 20px;
+    top: 60px;
+}
+.title {
+    position: relative;
+    height: 2px;
+    left: 18px;
+    top: 1px;
+}
+
+.pivot{
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    position: relative;
+    width: 990px;
+    height: 20px;
+}
+.home {
+    background-color: green;
+}
+
+
