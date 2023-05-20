@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import files from '../../files.png';
 import styles from '../../App.module.css';
-import { NoticeBox, Button, TableFoot, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
+import { NoticeBox, Button, Pagination, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
 
 export function Visualizations() {
     const navigate = useNavigate();
@@ -90,6 +90,14 @@ export function Visualizations() {
                                 </DataTableRow>
                             </TableBody>
                         </DataTable>
+                        <Pagination
+                            disabled
+                            isFirstPage
+                            //onPageChange={logOnPageChange}
+                            //onPageSizeChange={logOnPageSizeChange}
+                            page={1}
+                            pageSize={10}
+                        />
                     </div>
                     <div style={{
                         flex: '1',
