@@ -18,17 +18,17 @@ export function Visualizations() {
                     </NoticeBox>
                 </div>
 
-                <div style={{
-                    paddingRight:10,
-                    paddingTop:5,
-                    textAlign:"right"}}>
-                    <Button
-                        name="Basic button"
-                        //onClick={logger}
-                        value="default">
-                        Help
-                    </Button>
-                </div>
+                {/*<div style={{*/}
+                {/*    paddingRight:10,*/}
+                {/*    paddingTop:5,*/}
+                {/*    textAlign:"right"}}>*/}
+                {/*    <Button*/}
+                {/*        name="Basic button"*/}
+                {/*        //onClick={logger}*/}
+                {/*        value="default">*/}
+                {/*        Help*/}
+                {/*    </Button>*/}
+                {/*</div>*/}
 
 
                 <div style={{
@@ -40,7 +40,7 @@ export function Visualizations() {
                         flex: '10',
                         padding:20,
                         marginRight:1,
-                        paddingBottom:180,
+                        paddingBottom:120,
                         marginTop:2,
                         paddingTop:10
                     }}>
@@ -114,7 +114,7 @@ export function Visualizations() {
 
                     <div style={{
                         flex: '1',
-                        paddingTop:10,
+                        paddingTop:5,
                         marginRight:50,
                         alignItems:"center"
                     }}>
