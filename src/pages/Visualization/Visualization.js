@@ -3,7 +3,7 @@ import "react-pivottable/pivottable.css";
 //import TableRenderers from "react-pivottable/TableRenderers";
 import { useState } from "react";
 import { Button, Modal,SingleSelect, SingleSelectOption, ButtonStrip, ModalTitle,
-  ModalActions,  ModalContent ,DropdownButton, FlyoutMenu,
+  ModalActions, Input, ModalContent ,DropdownButton, FlyoutMenu,
   MenuItem, TextArea} from "@dhis2/ui";
 //import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
@@ -406,28 +406,23 @@ const handleDownload = () => {
                             Save Data to the System
                           </ModalTitle>
                           <ModalContent>
-                            <h4>Enter Name: </h4>
-                            <TextArea
-                                name="textAreaName"
-                                //onBlur={onBlur}
-                                //onChange={onChange}
-                                //onFocus={onFocus}
-                            />
-                            <h4>Choose Status:</h4>
+                            <p>Enter Name: </p>
+
+                            <Input name="defaultName"  />
+                            <p>Choose Status:</p>
                             <SingleSelect >
                               <SingleSelectOption label="Private" value="Private" />
                               <SingleSelectOption label="Public" value="Public" />
                             </SingleSelect>
-                            {/*<StatefuleComponent />*/}
                           </ModalContent>
                           <ModalActions>
                             <ButtonStrip end>
                               <Button onClick={()=>setStatus(false)}
-                                  name="Basic button" value="default">
+                                      name="Basic button" value="default">
                                 Cancel
                               </Button>
                               <Button onClick={()=>setStatus(false)}
-                                  name="Primary button"  primary value="default">
+                                      name="Primary button"  primary value="default">
                                 Save
                               </Button>
                             </ButtonStrip>
