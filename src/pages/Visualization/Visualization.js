@@ -1,19 +1,21 @@
 import PivotTableUI from "react-pivottable/PivotTableUI";
 import "react-pivottable/pivottable.css";
-import TableRenderers from "react-pivottable/TableRenderers";
+//import TableRenderers from "react-pivottable/TableRenderers";
 import { useState } from "react";
-import { Button, DropdownButton, FlyoutMenu, MenuItem } from "@dhis2/ui";
+import { Button, Modal,SingleSelect, SingleSelectOption, ButtonStrip, ModalTitle,
+  ModalActions,  ModalContent ,DropdownButton, FlyoutMenu,
+  MenuItem, TextArea} from "@dhis2/ui";
 //import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Plot from "react-plotly.js";
 //import styles from '../../App.module.css';
-import { container } from "plotly.js/src/traces/scatter/marker_colorbar";
+//import { container } from "plotly.js/src/traces/scatter/marker_colorbar";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import * as  htmlToImage from 'html-to-image';
-import { saveAs } from 'file-saver';
+//import * as  htmlToImage from 'html-to-image';
+// import { saveAs } from 'file-saver';
 
 
 // create Plotly React component via dependency injection
@@ -294,9 +296,12 @@ export function Visualization() {
   //   });
   // }
 
+//Saving Function
+  const [status, setStatus]=React.useState(false)
 
 
-//export PDF
+
+//Export PDF
 const handleDownload = () => {
     const tableElement = document.querySelector('.pvtUi');
   
@@ -307,7 +312,7 @@ const handleDownload = () => {
       const height = pdf.internal.pageSize.getHeight();
   
       pdf.addImage(imgData, 'PNG', 0, 0, width, height);
-      pdf.save('pivot_table.pdf');
+      pdf.save('Interactive Visualization.pdf');
     }).catch(err=>console.log(err));
   };
 
@@ -338,7 +343,7 @@ const handleDownload = () => {
             name="Basic button"
             value="default"
           >
-            Go Back
+            Back
           </Button>
           <div
             id="2"
@@ -392,21 +397,64 @@ const handleDownload = () => {
                     paddingTop: 5,
                   }}
                 >
-                  <Button
-                    style={{
-                      paddingLeft: "100px",
-                      position: "absolute",
-                    }}
-                    name=" button" onClick={handleDownload}
-                    value="default"
-                  >
-                    Save
-                  </Button>
+
+                  <div className="App">
+                    {
+                      status? <div>
+                        <Modal>
+                          <ModalTitle>
+                            Save Data to the System
+                          </ModalTitle>
+                          <ModalContent>
+                            <h4>Enter Name: </h4>
+                            <TextArea
+                                name="textAreaName"
+                                //onBlur={onBlur}
+                                //onChange={onChange}
+                                //onFocus={onFocus}
+                            />
+                            <h4>Choose Status:</h4>
+                            <SingleSelect >
+                              <SingleSelectOption label="Private" value="Private" />
+                              <SingleSelectOption label="Public" value="Public" />
+                            </SingleSelect>
+                            {/*<StatefuleComponent />*/}
+                          </ModalContent>
+                          <ModalActions>
+                            <ButtonStrip end>
+                              <Button onClick={()=>setStatus(false)}
+                                  name="Basic button" value="default">
+                                Cancel
+                              </Button>
+                              <Button onClick={()=>setStatus(false)}
+                                  name="Primary button"  primary value="default">
+                                Save
+                              </Button>
+                            </ButtonStrip>
+                          </ModalActions>
+                        </Modal>
+                      </div>:null
+                    }
+
+                    {/*<button onClick={()=>setStatus(false)}>Hide</button>*/}
+                    <Button
+                        style={{
+                          paddingLeft: "100px",
+                          position: "absolute",
+                        }}
+                        name=" button" onClick={()=>setStatus(true)}
+                        value="default"
+                    >
+                      Save
+                    </Button>
+
+                  </div>
+
                   <DropdownButton
                     component={
                       <FlyoutMenu>
-                        <MenuItem label="PNG" onClick={()=>{}}/>
-                        <MenuItem label="PDF" onClick={handleDownload} />
+                        <MenuItem label="PNG Format" onClick={()=>{}}/>
+                        <MenuItem label="PDF Format" onClick={handleDownload} />
                       </FlyoutMenu>
                     }
                     name="buttonName"
@@ -418,8 +466,8 @@ const handleDownload = () => {
                   <DropdownButton
                     component={
                       <FlyoutMenu>
-                        <MenuItem label="status" onClick={()=>{}} />
-                        <MenuItem label="color" onClick={()=>{}}/>
+                        <MenuItem label="Change Status" onClick={()=>{}} />
+                        <MenuItem label="Color" onClick={()=>{}}/>
                       </FlyoutMenu>
                     }
                     name="buttonName"
