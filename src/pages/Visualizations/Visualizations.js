@@ -18,6 +18,18 @@ export function Visualizations() {
                     </NoticeBox>
                 </div>
 
+                <div style={{
+                    paddingRight:10,
+                    paddingTop:5,
+                    textAlign:"right"}}>
+                    <Button
+                        name="Basic button"
+                        //onClick={logger}
+                        value="default">
+                        Help
+                    </Button>
+                </div>
+
 
                 <div style={{
                     display: 'flex',
@@ -99,12 +111,14 @@ export function Visualizations() {
                             pageSize={10}
                         />
                     </div>
+
                     <div style={{
                         flex: '1',
                         paddingTop:10,
                         marginRight:50,
                         alignItems:"center"
                     }}>
+
                         <img src={files} width={'350px'} alt="Interactive Data Visualization" />
                         <h4
                             style={
