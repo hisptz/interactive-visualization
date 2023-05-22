@@ -1,5 +1,6 @@
 import PivotTableUI from "react-pivottable/PivotTableUI";
 import "react-pivottable/pivottable.css";
+import 'intro.js/introjs.css';
 //import TableRenderers from "react-pivottable/TableRenderers";
 import { useState } from "react";
 import { Button, Modal,SingleSelect, SingleSelectOption, ButtonStrip, ModalTitle,

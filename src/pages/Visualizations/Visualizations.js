@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import files from '../../files.png';
 import styles from '../../App.module.css';
+import 'intro.js/introjs.css';
 import { NoticeBox, Button, Pagination, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
 
 export function Visualizations() {
