@@ -1,11 +1,26 @@
 import { useNavigate } from 'react-router-dom';
-import files from '../../files.png';
+import { Steps } from "intro.js-react";
+import React, {useState} from "react"
+//import files from '../../files.png';
 import styles from '../../App.module.css';
 import 'intro.js/introjs.css';
 import { NoticeBox, Button, Pagination, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
 
+// Helper
+const steps = [
+    {
+        selector: "#help2",
+        intro: "Click the 'Upload a file' button to upload a data file in CSV, Excel or JSON format from your local computer."
+    },
+    {
+        element: '#back1',
+        intro: 'Or select a row of the table to Visualize data that is already saved to the system.',
+    },
+]
+
 export function Visualizations() {
     const navigate = useNavigate();
+    const [openHelper, setOpenHelper] = useState(false);
     return (
         <div className={styles.container}>
             <div className={styles.notice_box}>
@@ -19,17 +34,36 @@ export function Visualizations() {
                     </NoticeBox>
                 </div>
 
-                {/*<div style={{*/}
-                {/*    paddingRight:10,*/}
-                {/*    paddingTop:5,*/}
-                {/*    textAlign:"right"}}>*/}
-                {/*    <Button*/}
-                {/*        name="Basic button"*/}
-                {/*        //onClick={logger}*/}
-                {/*        value="default">*/}
-                {/*        Help*/}
-                {/*    </Button>*/}
-                {/*</div>*/}
+                <div style={{
+                    paddingTop:10,
+                    justifyContent:'end',
+                    display:'flex',
+                    gap:7
+                }}>
+                    <Steps
+                steps={steps}
+                enabled={openHelper}
+                onExit={() => setOpenHelper(false)}
+                initialStep={0}
+            />
+            
+                <Button
+                    id='back1'
+                    name="Basic button"
+                    value="default"
+                    onClick={() => navigate(-1)}>
+                     Back
+                </Button>
+
+                <Button
+                    id='help2'
+                    name="Basic button"
+                    value="default"
+                    onClick={() => setOpenHelper(true)}>
+                     Help
+                </Button>
+                
+                </div>
 
 
                 <div style={{
@@ -39,10 +73,7 @@ export function Visualizations() {
                 }}>
                     <div style={{
                         flex: '10',
-                        padding:20,
-                        marginRight:1,
-                        paddingBottom:120,
-                        marginTop:2,
+                        padding:10,
                         paddingTop:10
                     }}>
                         <DataTable>
@@ -113,7 +144,7 @@ export function Visualizations() {
                         />
                     </div>
 
-                    <div style={{
+                    {/* <div style={{
                         flex: '1',
                         paddingTop:5,
                         marginRight:50,
@@ -125,11 +156,11 @@ export function Visualizations() {
                             style={
                                 {textAlign:"center"}
                             }> Welcome to Interactive Visualization ! </h4>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className={styles.back}>
-                <Button onClick={() => navigate('45')}>Go to one visualization</Button>
+                <Button onClick={() => navigate('45')}>Start Visualizing</Button>
             </div>
         </div>
 
