@@ -3,30 +3,31 @@ import "react-pivottable/pivottable.css";
 import 'intro.js/introjs.css';
 import { Steps } from "intro.js-react";
 import 'intro.js/introjs.css';
-//import TableRenderers from "react-pivottable/TableRenderers";
 import { useState } from "react";
 import {
   Button, Modal, SingleSelect, SingleSelectOption, ButtonStrip, ModalTitle,
   ModalActions, Input, ModalContent, DropdownButton, FlyoutMenu,
   MenuItem
 } from "@dhis2/ui";
-//import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Plot from "react-plotly.js";
-//import styles from '../../App.module.css';
-//import { container } from "plotly.js/src/traces/scatter/marker_colorbar";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 //import * as  htmlToImage from 'html-to-image';
 // import { saveAs } from 'file-saver';
-
+//import styles from '../../App.module.css';
+//import { container } from "plotly.js/src/traces/scatter/marker_colorbar";
+//import createPlotlyComponent from 'react-plotly.js/factory';
+//import TableRenderers from "react-pivottable/TableRenderers";
+// create Plotly renderers via dependency injection
 
 // create Plotly React component via dependency injection
-// const Plot = createPlotlyComponent(window.Plotly);
+//const Plotly = createPlotlyComponent(window.Plotly);
+
 // "Visualize1", "Visualize2","Visualize3","Visualize4","Visualize5"
-// create Plotly renderers via dependency injection
+
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 const data = [
   [
@@ -37,6 +38,8 @@ const data = [
     "Day of Week",
     "Meal",
     "Party Size",
+    // "Visualize1", "Visualize2","Visualize3","Visualize4","Visualize5",
+    // "Visualize7", "Visualize8","Visualize9","Visualize10","Visualize11"
   ],
   [16.99, 1.01, "Female", "Non-Smoker", "Sunday", "Dinner", 2],
   [10.34, 1.66, "Male", "Non-Smoker", "Sunday", "Dinner", 3],
@@ -284,6 +287,7 @@ const data = [
   [18.78, 3, "Female", "Non-Smoker", "Thursday", "Dinner", 2],
 ];
 
+
 const steps = [
   {
       selector: "#help3",
@@ -335,13 +339,9 @@ export function Visualization() {
   //Saving Function
   const [status, setStatus] = React.useState(false)
 
-
-
   //Export PDF
   const handleDownload = () => {
     const tableElement = document.querySelector('.pvtUi');
-
-    
 
     html2canvas(tableElement).then(canvas => {
       const pdf = new jsPDF('p', 'pt', 'letter');
@@ -408,7 +408,7 @@ export function Visualization() {
                 display: "flex",
                 justifyContent: "center",
                 position: "relative",
-                paddingBottom: 20,
+                paddingBottom: 5,
                 //width:'100%',
                 margin: "10px 50px 10px 50px",
               }}
@@ -421,7 +421,7 @@ export function Visualization() {
                   boxShadow: "0px 0px 7px 7px rgba(0,0,0,0.3)",
                   position: "relative",
                   padding: "5px 10px 5px 5px",
-                  margin: "10px 50px 10px 50px",
+                  margin: "5px 50px 5px 50px",
                 }}
               >
                 <div
@@ -439,7 +439,7 @@ export function Visualization() {
                   <div className="App">
                     {
                       status ? <div>
-                        <Modal>
+                        <Modal >
                           <ModalTitle>
                             Save Data to the System
                           </ModalTitle>
@@ -526,14 +526,14 @@ export function Visualization() {
                     Help
                   </Button>
                 </div>
-
-                
                 <PivotTableUI
                   data={data}
                   onChange={(s) => setState(s)}
                   renderers={Object.assign({}, PlotlyRenderers)}
                   {...state}
                 />
+
+                
               </div>
             </div>
           </div>

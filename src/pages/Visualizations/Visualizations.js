@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { Steps } from "intro.js-react";
 import React, {useState} from "react"
-//import files from '../../files.png';
 import styles from '../../App.module.css';
 import 'intro.js/introjs.css';
-import { NoticeBox, Button, Pagination, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
+import { NoticeBox, Button, Pagination, FileInputField, DataTable, 
+    TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
 
 // Helper
 const steps = [
@@ -14,7 +14,7 @@ const steps = [
     },
     {
         element: '#back1',
-        intro: 'Or select a row of the table to Visualize data that is already saved to the system.',
+        intro: "To visualize data already saved in the system, simply select a row from the table. This feature empowers users to conveniently analyze and gain insights from the existing data, enhancing their data visualization and exploration capabilities within the app."
     },
 ]
 
@@ -25,12 +25,39 @@ export function Visualizations() {
         <div className={styles.container}>
             <div className={styles.notice_box}>
                 <div >
-                    <NoticeBox title="Information">
-                        Upload data file to generate visualization
 
-                        <FileInputField label={null} name="uploadName" className={
-                            styles.upload
-                        } />
+                    <div
+                    style={{
+                        paddingBottom:10,
+                        gap:5,
+                        display:"flex"
+                    }}>
+                    <Button
+                    id='back1'
+                    name="Basic button"
+                    value="default"
+                    onClick={() => navigate(-1)}>
+                     Back
+                </Button>
+
+                <Button
+                    id='help2'
+                    name="Basic button"
+                    value="default"
+                    onClick={() => setOpenHelper(true)}>
+                     Help
+                </Button>
+
+
+                    </div>
+                    <NoticeBox title="Information">
+                        Upload data file to generate a visualization
+
+                        <FileInputField label={null} name="uploadName" 
+                        styles={{
+                            display:"flex",
+                            justifyContent:"right",
+                            }}/>
                     </NoticeBox>
                 </div>
 
@@ -46,35 +73,10 @@ export function Visualizations() {
                 onExit={() => setOpenHelper(false)}
                 initialStep={0}
             />
-            
-                <Button
-                    id='back1'
-                    name="Basic button"
-                    value="default"
-                    onClick={() => navigate(-1)}>
-                     Back
-                </Button>
-
-                <Button
-                    id='help2'
-                    name="Basic button"
-                    value="default"
-                    onClick={() => setOpenHelper(true)}>
-                     Help
-                </Button>
-                
                 </div>
 
-
-                <div style={{
-                    display: 'flex',
-                    alignItems:"center"
-
-                }}>
                     <div style={{
-                        flex: '10',
-                        padding:10,
-                        paddingTop:10
+                        paddingTop:15
                     }}>
                         <DataTable>
                             <TableHead>
@@ -109,7 +111,7 @@ export function Visualizations() {
                                     </DataTableCell>
                                 </DataTableRow>
                                 <DataTableRow>
-                                    <DataTableCell>
+                                    <DataTableCell bordered={true}>
                                         2.
                                     </DataTableCell>
                                     <DataTableCell>
@@ -121,6 +123,20 @@ export function Visualizations() {
                                     <DataTableCell>
                                         12/12/2022
                                     </DataTableCell>
+                                </DataTableRow>
+                                 <DataTableRow>
+                                 <DataTableCell bordered={true}>
+                                        3.
+                                </DataTableCell>
+                                <DataTableCell>
+                                    Health Services Utilization Data
+                                </DataTableCell>
+                                <DataTableCell>
+                                    Public
+                                </DataTableCell>        
+                                <DataTableCell>
+                                    11/01/2023
+                                </DataTableCell>
                                 </DataTableRow>
                                 <DataTableRow>
                                     <DataTableCell>
@@ -143,22 +159,7 @@ export function Visualizations() {
                             pageSize={10}
                         />
                     </div>
-
-                    {/* <div style={{
-                        flex: '1',
-                        paddingTop:5,
-                        marginRight:50,
-                        alignItems:"center"
-                    }}>
-
-                        <img src={files} width={'350px'} alt="Interactive Data Visualization" />
-                        <h4
-                            style={
-                                {textAlign:"center"}
-                            }> Welcome to Interactive Visualization ! </h4>
-                    </div> */}
                 </div>
-            </div>
             <div className={styles.back}>
                 <Button onClick={() => navigate('45')}>Start Visualizing</Button>
             </div>
