@@ -3,8 +3,9 @@ import { Steps } from "intro.js-react";
 import React, {useState} from "react"
 import styles from '../../App.module.css';
 import 'intro.js/introjs.css';
-import { NoticeBox, Button, Pagination, FileInputField, DataTable, 
+import { NoticeBox, Button, Pagination, DataTable, 
     TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
+import FileUploader from './FileUpload';
 
 // Helper
 const steps = [
@@ -53,11 +54,7 @@ export function Visualizations() {
                     <NoticeBox title="Information">
                         Upload data file to generate a visualization
 
-                        <FileInputField label={null} name="uploadName" 
-                        styles={{
-                            display:"flex",
-                            justifyContent:"right",
-                            }}/>
+                    <FileUploader/>
                     </NoticeBox>
                 </div>
 
