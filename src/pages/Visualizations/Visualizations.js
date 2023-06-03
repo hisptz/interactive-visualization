@@ -1,7 +1,23 @@
 import { useNavigate } from 'react-router-dom';
-import files from '../../files.png';
+import { Steps } from "intro.js-react";
+import React, {useState} from "react"
 import styles from '../../App.module.css';
-import { NoticeBox, Button, TableFoot, FileInputField, DataTable, CircularLoader, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
+import 'intro.js/introjs.css';
+import { NoticeBox, Button, Pagination, DataTable, CircularLoader, 
+    TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
+import FileUploader from './FileUpload';
+
+// Helper
+const steps = [
+    {
+        selector: "#help2",
+        intro: "Click the 'Upload a file' button to upload a data file in CSV, Excel or JSON format from your local computer."
+    },
+    {
+        element: '#back1',
+        intro: "To visualize data already saved in the system, simply select a row from the table. This feature empowers users to conveniently analyze and gain insights from the existing data, enhancing their data visualization and exploration capabilities within the app."
+    },
+]
 import { useDataMutation, useDataQuery} from '@dhis2/app-runtime';
 
 
@@ -49,6 +65,7 @@ export function Visualizations() {
     const error = queryData.error;
 
     const navigate = useNavigate();
+    const [openHelper, setOpenHelper] = useState(false);
 
 
     if (loading) {
@@ -73,28 +90,54 @@ export function Visualizations() {
         <div className={styles.container}>
             <div className={styles.notice_box}>
                 <div >
-                    <NoticeBox title="Information">
-                        Upload data file to generate visualization
 
-                        <FileInputField label={null} name="uploadName" className={
-                            styles.upload
-                        } />
+                    <div
+                    style={{
+                        paddingBottom:10,
+                        gap:5,
+                        display:"flex"
+                    }}>
+                    <Button
+                    id='back1'
+                    name="Basic button"
+                    value="default"
+                    onClick={() => navigate(-1)}>
+                     Back
+                </Button>
+
+                <Button
+                    id='help2'
+                    name="Basic button"
+                    value="default"
+                    onClick={() => setOpenHelper(true)}>
+                     Help
+                </Button>
+
+
+                    </div>
+                    <NoticeBox title="Information">
+                        Upload data file to generate a visualization
+
+                    <FileUploader/>
                     </NoticeBox>
                 </div>
 
-
                 <div style={{
-                    display: 'flex',
-                    alignItems:"center"
-
+                    paddingTop:10,
+                    justifyContent:'end',
+                    display:'flex',
+                    gap:7
                 }}>
+                    <Steps
+                steps={steps}
+                enabled={openHelper}
+                onExit={() => setOpenHelper(false)}
+                initialStep={0}
+            />
+                </div>
+
                     <div style={{
-                        flex: '10',
-                        padding:20,
-                        marginRight:1,
-                        paddingBottom:180,
-                        marginTop:2,
-                        paddingTop:10
+                        paddingTop:15
                     }}>
                         <DataTable>
                             <TableHead>
@@ -134,23 +177,18 @@ export function Visualizations() {
                     }
                             </TableBody>
                         </DataTable>
-                    </div>
-                    <div style={{
-                        flex: '1',
-                        paddingTop:10,
-                        marginRight:50,
-                        alignItems:"center"
-                    }}>
-                        <img src={files} width={'350px'} alt="Interactive Data Visualization" />
-                        <h4
-                            style={
-                                {textAlign:"center"}
-                            }> Welcome to Interactive Visualization ! </h4>
+                        <Pagination
+                            disabled
+                            isFirstPage
+                            //onPageChange={logOnPageChange}
+                            //onPageSizeChange={logOnPageSizeChange}
+                            page={1}
+                            pageSize={10}
+                        />
                     </div>
                 </div>
-            </div>
             <div className={styles.back}>
-                <Button onClick={() => navigate('45')}>Go to one visualization</Button>
+                <Button onClick={() => navigate('45')}>Start Visualizing</Button>
             </div>
         </div>
 
