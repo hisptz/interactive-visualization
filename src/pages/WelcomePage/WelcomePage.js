@@ -2,6 +2,7 @@ import {useNavigate} from "react-router";
 
 import {Button} from "@dhis2/ui"
 
+
 export function WelcomePage() {
     const navigate = useNavigate();
 

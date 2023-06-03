@@ -2,7 +2,7 @@ import PivotTableUI from "react-pivottable/PivotTableUI";
 import "react-pivottable/pivottable.css";
 import TableRenderers from "react-pivottable/TableRenderers";
 import { useState } from "react";
-import { Button, DropdownButton, FlyoutMenu, MenuItem } from "@dhis2/ui";
+import { Button, ButtonStrip, DropdownButton, Field, FlyoutMenu, Input , Label, MenuItem, Modal, ModalActions, ModalContent, ModalTitle } from "@dhis2/ui";
 //import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useParams } from "react-router";
@@ -14,6 +14,8 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as  htmlToImage from 'html-to-image';
 import { saveAs } from 'file-saver';
+import { Form } from "react-hook-form";
+import { useDataMutation } from "@dhis2/app-runtime";
 
 
 // create Plotly React component via dependency injection
@@ -277,7 +279,15 @@ const data = [
   [18.78, 3, "Female", "Non-Smoker", "Thursday", "Dinner", 2],
 ];
 
+
+const mutation = {
+  type: 'create',
+  resource: 'dataStore/visualization/FYP',
+  data: ({ data  }) => (data)
+}
+
 export function Visualization() {
+  const [saveConfig, {loading: savingConfig}] = useDataMutation(mutation)
   const params = useParams();
   const navigate = useNavigate();
   const id = params.id;
@@ -286,13 +296,32 @@ export function Visualization() {
   const [loading, setLoading] = useState(false);
 
 
-  //exporting PNG
-  // const handlePNG=()=> {
-  //   const pivotTable = document.getElementsByClassName('pvtUi');
-  //   htmlToImage.toBlob(pivotTable).then(function (blob) {
-  //     saveAs(blob, 'pivot-table.png');
-  //   });
-  // }
+  const onSave = () =>{
+     saveConfig({
+      data:  {
+        name: "",
+        status: "",
+        createdAt: new Date().toISOString(),
+        config: {},
+        data: {}
+      }
+     })
+  }
+       
+  //export PNG
+// const ExportButton = () =>{
+
+   const exportPNG = () => {
+    const tableElement = document.querySelector('.pvtTable'); // ID of the element containing the picture
+
+    html2canvas(tableElement).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imgData; 
+      link.download = 'exported_image.png';
+      link.click();
+    });
+  }
 
 
 
@@ -309,8 +338,15 @@ const handleDownload = () => {
       pdf.addImage(imgData, 'PNG', 0, 0, width, height);
       pdf.save('pivot_table.pdf');
     }).catch(err=>console.log(err));
+    
   };
+  // const [onClose, setOnClose] = useState('false');
+  const [onHide, setOnHide] = useState(false);
+  const HandleModal= ()=>{
+    setOnHide(true);
+  }
 
+  console.log(onHide)
   return (
     <>
       <div
@@ -392,20 +428,53 @@ const handleDownload = () => {
                     paddingTop: 5,
                   }}
                 >
+                  
+                  <>
                   <Button
                     style={{
                       paddingLeft: "100px",
                       position: "absolute",
                     }}
-                    name=" button" onClick={handleDownload}
-                    value="default"
+                    name=" button" onClick={HandleModal}
+                    // value="default"
                   >
                     Save
                   </Button>
+                  {
+                    onHide &&
+                    <Modal >
+                    <ModalTitle>
+                      <ModalTitle>Save the File</ModalTitle>
+                    </ModalTitle>
+                    <ModalContent>
+                     <form>
+                     <Field  label = "Name"   />
+                     <Input label = "name" requierd />
+                     <br />
+                     
+                     <select name = "Status" >
+                     
+                     <option value={'Status'} selected onClick={()=>{}} >Status </option>
+                     <option value={'Private'} onClick={()=>{}} >Private </option>
+                     <option value= {'Public'}  onClick={()=>{}}> Public </option>
+                     </select>
+                      
+                     </form>
+                    </ModalContent>
+                    <ModalActions>
+                      <ButtonStrip end>
+                        <Button onClick={()=> setOnHide(false)}> Close </Button>
+                        <Button onClick= {onSave} primary> Submit</Button>
+                      </ButtonStrip>
+                    </ModalActions>
+                  </Modal>
+                  }
+                 
+                  </>
                   <DropdownButton
                     component={
                       <FlyoutMenu>
-                        <MenuItem label="PNG" onClick={()=>{}}/>
+                        <MenuItem label="PNG" onClick={exportPNG} />
                         <MenuItem label="PDF" onClick={handleDownload} />
                       </FlyoutMenu>
                     }

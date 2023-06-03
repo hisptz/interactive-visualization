@@ -1,10 +1,74 @@
 import { useNavigate } from 'react-router-dom';
 import files from '../../files.png';
 import styles from '../../App.module.css';
-import { NoticeBox, Button, TableFoot, FileInputField, DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
+import { NoticeBox, Button, TableFoot, FileInputField, DataTable, CircularLoader, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
+import { useDataMutation, useDataQuery} from '@dhis2/app-runtime';
+
+
+
+
+const query = {
+    dE: {
+        resource: "dataStore/visualization",
+        params: (dynamicParams) =>{
+
+            const page = dynamicParams.page
+            return {
+                fields: [
+                    "id",
+                    "name",
+                    "status"
+                ],
+                page: page,
+                pageSize: 10,
+                totalPages: true
+            }
+        }
+    }
+}
+
+
+
+
+export function API(){
+
+   
+   
+   
+
+}
+
+
 
 export function Visualizations() {
+    const queryData = useDataQuery(query)
+        
+
+    const data = queryData.data?.dE;
+    const loading = queryData.loading;
+    const error = queryData.error;
+
     const navigate = useNavigate();
+
+
+    if (loading) {
+        return (
+            <div >
+                <CircularLoader small/>
+                <h3>Loading data elements</h3>
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div>
+                <h3>{error.message}</h3>
+            </div>
+        )
+    }
+
+
     return (
         <div className={styles.container}>
             <div className={styles.notice_box}>
@@ -36,7 +100,7 @@ export function Visualizations() {
                             <TableHead>
                                 <DataTableRow>
                                     <DataTableColumnHeader>
-                                        S/N
+                                        No
                                     </DataTableColumnHeader>
                                     <DataTableColumnHeader>
                                         Name
@@ -50,44 +114,24 @@ export function Visualizations() {
                                 </DataTableRow>
                             </TableHead>
                             <TableBody>
-                                <DataTableRow>
-                                    <DataTableCell bordered={true}>
-                                        1.
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                        Aggregate COVID-19 Immunization in Tanzania for the year 2022
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                        Public
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                        04/12/2022
-                                    </DataTableCell>
-                                </DataTableRow>
-                                <DataTableRow>
-                                    <DataTableCell>
-                                        2.
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                        Medical Expenditure Data Survey 2022
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                        Private
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                        12/12/2022
-                                    </DataTableCell>
-                                </DataTableRow>
-                                <DataTableRow>
-                                    <DataTableCell>
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                    </DataTableCell>
-                                    <DataTableCell>
-                                    </DataTableCell>
-                                </DataTableRow>
+                   {
+                        data?.dataElements?.map((dataElement, index) => (
+                            <TableRow key={`${dataElement.id}-row`}>
+                                <TableCell>
+                                    {index + 1}
+                                </TableCell>
+                                <TableCell>
+                                    {dataElement.Name}
+                                </TableCell>
+                                <TableCell>
+                                    {dataElement.Status}
+                                </TableCell>
+                                <TableCell>
+                                    {dataElement.dateCreated}
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    }
                             </TableBody>
                         </DataTable>
                     </div>

@@ -1,7 +1,7 @@
 import {WelcomePage} from "../WelcomePage";
 import {Visualization} from "../Visualization";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
-import {Visualizations} from "../Visualizations";
+import {Visualizations, API} from "../Visualizations";
 
 const routes = [
     {
