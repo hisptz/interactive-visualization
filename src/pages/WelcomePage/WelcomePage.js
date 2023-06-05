@@ -12,6 +12,7 @@ const steps = [
     }
 ]
 
+
 export function WelcomePage() {
     const navigate = useNavigate();
     const [openHelper, setOpenHelper] = useState(false);
