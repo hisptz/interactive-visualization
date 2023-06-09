@@ -11,7 +11,7 @@ import Plot from "react-plotly.js";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
-import  SaveModal  from "./SaveModal/SaveModal";
+import { SaveModal } from "./SaveModal";
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
 const steps = [
@@ -73,7 +73,11 @@ export function Visualization() {
   useEffect(()=>{
      if(visualizationData){
         setState({
-          ...visualizationData
+          data: visualizationData.data,
+          cols: visualizationData.cols,
+          rows: visualizationData.rows,
+          aggregatorName: visualizationData.aggregatorName,
+          rendererName: visualizationData
         })
      }
   }, [visualizationData])
@@ -94,19 +98,19 @@ export function Visualization() {
       })
       .catch((err) => console.log(err));
   };
-  // const [onClose, setOnClose] = useState('false');
   const [onHide, setOnHide] = useState(false);
+
   const HandleModal = () => {
     setOnHide(true);
   };
-//   if (loading) {
-//     return (
-//         <div>
-//             <CircularLoader small/>
-//             <h3>Loading data elements</h3>
-//         </div>
-//     )
-// }
+  if (loading) {
+    return (
+        <div >
+            <CircularLoader small/>
+            <h3>Loading data elements</h3>
+        </div>
+    )
+}
 
   return (
     <>
@@ -198,12 +202,11 @@ export function Visualization() {
                       name=" button"
                       onClick={HandleModal}
                       // value="default"
-                  
                     >
-                      {data?.dE !== undefined ? "Update": "Save"}
+                      Save
                     </Button>
                     {onHide && (
-                            <SaveModal edit={data?.dE !== undefined} defaultValue={data?.dE} config={state}  id={id} hide={!onHide} onClose={() => setOnHide(false)} />
+                            <SaveModal edit={data?.dE !== undefined} config={state}  id={id} hide={onHide} onClose={() => setOnHide(false)} setOnHide={setOnHide}/>
                     )}
                   </>
                   <DropdownButton

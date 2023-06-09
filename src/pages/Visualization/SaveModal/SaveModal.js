@@ -16,34 +16,70 @@ import {
 import { FormProvider, useForm, Controller } from "react-hook-form";
 import { useDataMutation } from "@dhis2/app-runtime";
 
+const createMutation = (id) => ({
+  type: "create",
+  resource: "dataStore/visualization" + "/" + id,
+  data: ({ data }) => data,
+});
+const updateMutation = {
+  type: "update",
+  resource: "dataStore/visualization",
+  id: ({ id }) => id,
+  data: ({ data }) => data,
+};
 
-const mutation = {
-    type: "create",
-    resource: "dataStore/visualization/FYP",
-    data: ({ data }) => data,
-  };
+export function SaveModal({ onClose, hide, config, id, edit, defaultValue, setOnHide  }) {
+  const [create, { loading: creating }] = useDataMutation(createMutation(id));
+  const [update, { loading: updating }] = useDataMutation(updateMutation);
 
-export function SaveModal({ onClose, hide, config }) {
-    const [saveConfig, { loading: savingConfig }] = useDataMutation(mutation);
+  const form = useForm({
+    defaultValues: defaultValue,
+  });
 
-  const form = useForm();
 
-  const onSave = ({name, status}) => {
-
+  const onSave = async ({ name, status }) => {
     const payload = {
-        config,
-        name,
-        status,
-        createdAt: new Date().toISOString()
+      id,
+      config: {
+        data: config.data,
+        cols: config.cols,
+        rows: config.rows,
+        aggregatorName: config.aggregatorName,
+        rendererName: config.rendererName,
+      },
+      name,
+      status,
+      createdAt: new Date().toISOString(),
+      
+    };
+    console.log(payload)
+    try {
+      if (edit) {
+        await update({
+          id,
+          data: payload,
+        });
+      } else {
+        await create({
+          data: payload,
+        });
+      }
+  
+      onClose(); // Close the modal after saving or updating
+      window.alert("Save/update successful!"); // Display an alert
+    } catch (error) {
+      console.error("Error saving/updating data:", error);
     }
-
-    console.log(payload);
   };
+ 
+
+  
+  
 
   return (
-    <Modal onClose={onClose} hide={hide}>
+    <Modal onClose={onClose} >
       <ModalTitle>
-        <ModalTitle>Save the File</ModalTitle>
+        <ModalTitle>Save the Data</ModalTitle>
       </ModalTitle>
       <ModalContent>
         <FormProvider {...form}>
@@ -57,6 +93,7 @@ export function SaveModal({ onClose, hide, config }) {
                     onChange={({ value }) => field.onChange(value)}
                     label={"Name"}
                     placeholder="Enter file name"
+                    autoComplete="off"
                   />
                 );
               }}
@@ -71,6 +108,7 @@ export function SaveModal({ onClose, hide, config }) {
                     onChange={({ selected }) => field.onChange(selected)}
                     label="Status"
                     placeholder="status"
+
                     //   onChange={onChange}
                   >
                     <SingleSelectOption label="Private" value="Private" />
@@ -85,12 +123,18 @@ export function SaveModal({ onClose, hide, config }) {
       <ModalActions>
         <ButtonStrip end>
           <Button onClick={() => onClose()}> Close </Button>
-          <Button onClick={form.handleSubmit(onSave)} primary>
+          <Button
+            loading={creating || updating}
+            onClick={form.handleSubmit(onSave)}
+            primary
+          >
             {" "}
-            Submit
+            {edit ? "Update" : "Save"}
           </Button>
         </ButtonStrip>
       </ModalActions>
     </Modal>
   );
-}
+};
+export default SaveModal;
+

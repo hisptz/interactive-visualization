@@ -34,14 +34,13 @@ const FileUploader = () => {
     const {show} = useAlert(`Data structure not supported`, {info: true})
 
     const handleFileUpload = async ({ files }, event) => {
-        console.log(files);
+        
         const file = files[0]; // Get the first file from the selected files array
 
-        console.log(file)
+        
 
         let data = [];
 
-        console.log(file)
 
         const fileSize = file.size / 1024 / 1024; // Calculate file size in MB
 
@@ -71,8 +70,10 @@ const FileUploader = () => {
             return;
         }
 
-        localStorage.setItem(file.name, JSON.stringify(data));
-        navigate(`${file.name}`)
+        const name = file.name.split('.')?.[0];
+
+        localStorage.setItem(name, JSON.stringify(data));
+        navigate(`${name}`)
     };
     return (
         <div>

@@ -6,6 +6,7 @@ import 'intro.js/introjs.css';
 import { NoticeBox, Button, Pagination, DataTable, CircularLoader, 
     TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell } from '@dhis2/ui';
 import FileUploader from './FileUpload';
+import  {DataElementTable}  from '../Visualization/API/DataElementTable';
 
 // Helper
 const steps = [
@@ -19,6 +20,7 @@ const steps = [
     },
 ]
 import { useDataMutation, useDataQuery} from '@dhis2/app-runtime';
+import { DataElementsTable } from '../Visualization/API/DataElementTable';
 
 
 
@@ -139,52 +141,7 @@ export function Visualizations() {
                     <div style={{
                         paddingTop:15
                     }}>
-                        <DataTable>
-                            <TableHead>
-                                <DataTableRow>
-                                    <DataTableColumnHeader>
-                                        No
-                                    </DataTableColumnHeader>
-                                    <DataTableColumnHeader>
-                                        Name
-                                    </DataTableColumnHeader>
-                                    <DataTableColumnHeader>
-                                        Status
-                                    </DataTableColumnHeader>
-                                    <DataTableColumnHeader>
-                                        Date Created
-                                    </DataTableColumnHeader>
-                                </DataTableRow>
-                            </TableHead>
-                            <TableBody>
-                   {
-                        data?.dataElements?.map((dataElement, index) => (
-                            <TableRow key={`${dataElement.id}-row`}>
-                                <TableCell>
-                                    {index + 1}
-                                </TableCell>
-                                <TableCell>
-                                    {dataElement.Name}
-                                </TableCell>
-                                <TableCell>
-                                    {dataElement.Status}
-                                </TableCell>
-                                <TableCell>
-                                    {dataElement.dateCreated}
-                                </TableCell>
-                            </TableRow>
-                        ))
-                    }
-                            </TableBody>
-                        </DataTable>
-                        <Pagination
-                            disabled
-                            isFirstPage
-                            //onPageChange={logOnPageChange}
-                            //onPageSizeChange={logOnPageSizeChange}
-                            page={1}
-                            pageSize={10}
-                        />
+                        <DataElementTable/>
                     </div>
                 </div>
             <div className={styles.back}>
