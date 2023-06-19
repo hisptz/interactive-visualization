@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {uid} from '@hisptz/dhis2-utils'
 import * as XLSX from 'xlsx';
 import { read, utils } from 'read-excel-file';
 import csvtojson from 'csvtojson';
@@ -70,10 +71,10 @@ const FileUploader = () => {
             return;
         }
 
-        const name = file.name.split('.')?.[0];
+        const fileId = uid();
 
-        localStorage.setItem(name, JSON.stringify(data));
-        navigate(`${name}`)
+        localStorage.setItem(fileId, JSON.stringify(data));
+        navigate(`${fileId}`)
     };
     return (
         <div>
@@ -84,54 +85,3 @@ const FileUploader = () => {
 
 export default FileUploader;
 
-
-// if (file) {
-//     const fileSize = file.size / 1024 / 1024; // Calculate file size in MB
-
-//     if (fileSize > 2) {
-//         // File size exceeds 2MB, handle the error
-//         alert("File size exceeds 2MB limit.");
-//         return;
-//     }
-
-//     const reader = new FileReader(file);
-//     reader.onload = (e) => {
-//         const fileData = e.target.result; // File content
-
-//         console.log(fileData)
-//         let jsonArray = [];
-//         // Process the file based on its type
-//         if (file.name.endsWith(".csv")) {
-//             //         const jsonArray = csvtojson().fromString(fileData);
-//             //   console.log('JSON Content:', jsonArray);
-//             jsonArray = convertCsvToJsonArray(fileData);
-//             console.log(jsonArray);
-//             // Use the jsonArray as needed
-//         } else if (file.name.endsWith(".json")) {
-//             jsonArray = JSON.parse(fileData);
-//             console.log(jsonArray);
-//             // Use the jsonArray as needed
-//         } else if (file.name.endsWith(".xlsx")) {
-//             const workbook = XLSX.read(fileData, { type: "array" });
-//             const sheetName = workbook.SheetNames[0];
-//             const worksheet = workbook.Sheets[sheetName];
-//             const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-//             const headers = jsonData[0];
-//             value
-//             for (let i = 1; i < jsonData.length; i++) {
-//                 const currentRowData = jsonData[i];
-//                 const jsonEntry = {};
-
-//                 for (let j = 0; j < headers.length; j++) {
-//                     jsonEntry[headers[j]] = currentRowData[j];
-//                 }
-
-//                 jsonArray.push(jsonEntry);
-//             }
-//             console.log(jsonArray);
-//             // Use the jsonArray as needed
-//         }
-//     };
-
-//     reader.readAsArrayBuffer(file);
-// }

@@ -12,6 +12,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
 import { SaveModal } from "./SaveModal";
+import  {DataElementTable}  from '../Visualization/API/DataElementTable';
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
 const steps = [
@@ -58,18 +59,16 @@ const query = {
   }
 }
 
-
 export function Visualization() {
   const params = useParams();
   const navigate = useNavigate();
   const id = useMemo(()=> params.id, [params]);
   const {data,loading,error}=useDataQuery(query,{variables:{id}, onError: ()=>{}})
-
+ 
   const [state, setState] = useState();
   const [openHelper, setOpenHelper] = useState(false);
   const visualizationData =  useMemo(()=> data?.dE?.config ?? {data: JSON.parse(localStorage.getItem(id))}, [data]);
 
-  console.log(state);
   useEffect(()=>{
      if(visualizationData){
         setState({
@@ -82,22 +81,21 @@ export function Visualization() {
      }
   }, [visualizationData])
  
-  //Export PDF
-  const handleDownload = () => {
-    const tableElement = document.querySelector(".pvtUi");
+const handleExportPDF =() =>{
+  const table = TableExport(data,{
+    format: 'pdf'
+  });
+  table.save();
+}
 
-    html2canvas(tableElement)
-      .then((canvas) => {
-        const pdf = new jsPDF("p", "pt", "letter");
-        const imgData = canvas.toDataURL("image/png");
-        const width = pdf.internal.pageSize.getWidth();
-        const height = pdf.internal.pageSize.getHeight();
+const handleExportPNG =() =>{
+  const table = TableExport(data, {
+    format: 'png'
+  });
+  console.log("first")
+  table.save();
+}
 
-        pdf.addImage(imgData, "PNG", 0, 0, width, height);
-        pdf.save("pivot_table.pdf");
-      })
-      .catch((err) => console.log(err));
-  };
   const [onHide, setOnHide] = useState(false);
 
   const HandleModal = () => {
@@ -212,8 +210,8 @@ export function Visualization() {
                   <DropdownButton
                     component={
                       <FlyoutMenu>
-                        <MenuItem label="PNG" onClick={() => {}} />
-                        <MenuItem label="PDF" onClick={handleDownload} />
+                        <MenuItem label="PNG" onClick={handleExportPNG} />
+                        <MenuItem label="PDF" onClick={handleExportPDF} />
                       </FlyoutMenu>
                     }
                     name="buttonName"

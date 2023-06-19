@@ -48,13 +48,7 @@ const query = {
 
 
 
-export function API(){
 
-   
-   
-   
-
-}
 
 
 

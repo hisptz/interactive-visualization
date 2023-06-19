@@ -2,7 +2,7 @@ import PivotTableUI from "react-pivottable/PivotTableUI";
 import "react-pivottable/pivottable.css";
 import "intro.js/introjs.css";
 import { Steps } from "intro.js-react";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Button,ButtonStrip,DropdownButton,Field,FlyoutMenu,Input,MenuItem,CircularLoader,Modal,ModalActions,ModalContent,ModalTitle,SingleSelectField,SingleSelectOption}from "@dhis2/ui";
 import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useParams } from "react-router";
@@ -69,7 +69,6 @@ export function Visualization() {
   const [openHelper, setOpenHelper] = useState(false);
   const visualizationData =  useMemo(()=> data?.dE?.config ?? {data: JSON.parse(localStorage.getItem(id))}, [data]);
 
-  console.log(state);
   useEffect(()=>{
      if(visualizationData){
         setState({
@@ -78,35 +77,37 @@ export function Visualization() {
      }
   }, [visualizationData])
  
-  //Export PDF
-  const handleDownload = () => {
-    const tableElement = document.querySelector(".pvtUi");
+ 
 
-    html2canvas(tableElement)
-      .then((canvas) => {
-        const pdf = new jsPDF("p", "pt", "letter");
-        const imgData = canvas.toDataURL("image/png");
-        const width = pdf.internal.pageSize.getWidth();
-        const height = pdf.internal.pageSize.getHeight();
+  const pivotTableRef = useRef(null);
 
-        pdf.addImage(imgData, "PNG", 0, 0, width, height);
-        pdf.save("pivot_table.pdf");
-      })
-      .catch((err) => console.log(err));
+  const handleExportPNG = () => {
+    console.log(pivotTableRef);
+    html2canvas(pivotTableRef.current).then((canvas) => {
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = 'pivot-table.png';
+      link.click();
+    });
   };
+
+  const handleExportPDF = () => {
+    html2canvas(pivotTableRef.current).then((canvas) => {
+      const image = canvas.toDataURL('image/png');
+      const pdf = new jsPDF();
+      pdf.addImage(image, 'PNG', 0, 0);
+      pdf.save('pivot-table.pdf');
+    });
+    
+  };
+
   // const [onClose, setOnClose] = useState('false');
   const [onHide, setOnHide] = useState(false);
   const HandleModal = () => {
     setOnHide(true);
   };
-//   if (loading) {
-//     return (
-//         <div>
-//             <CircularLoader small/>
-//             <h3>Loading data elements</h3>
-//         </div>
-//     )
-// }
+  
 
   return (
     <>
@@ -208,8 +209,8 @@ export function Visualization() {
                   <DropdownButton
                     component={
                       <FlyoutMenu>
-                        <MenuItem label="PNG" onClick={() => {}} />
-                        <MenuItem label="PDF" onClick={handleDownload} />
+                        <MenuItem label="PNG" onClick={handleExportPNG} />
+                        <MenuItem label="PDF" onClick={handleExportPDF} />
                       </FlyoutMenu>
                     }
                     name="buttonName"
