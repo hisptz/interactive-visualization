@@ -1,6 +1,8 @@
 import {useDataQuery, DataQuery} from "@dhis2/app-runtime";
 import React, {useState} from "react";
 import {CircularLoader, Table, TableBody, TableCell, TableCellHead, TableHead, TableRow, TableRowHead} from "@dhis2/ui"
+import { useNavigate } from "react-router";
+// import { color } from "html2canvas/dist/types/css/types/color";
 
 const query = {
     dE: {
@@ -25,11 +27,18 @@ const query = {
 
 
 export function DataElementTable(){
+    const navigate = useNavigate()
     const queryData = useDataQuery(query)
+    const[selectedRow, setSelectedRow] = useState(null);
+
+    const handleRowClick = (rowId) =>{
+        navigate(`${rowId}`)
+    }
 
     const data = queryData.data?.dE;
     const loading = queryData.loading;
     const error = queryData.error;
+    console.log(data)
 
     if (loading) {
         return (
@@ -47,6 +56,8 @@ export function DataElementTable(){
             </div>
         )
     }
+
+   
 
     return (
         <div style={{padding: 32}} >
@@ -71,13 +82,19 @@ export function DataElementTable(){
                 <TableBody>
                     {
                         data?.entries?.map((dataElement, index) => (
-                            <TableRow key={`${dataElement.id}-row`}>
+                            
+                            <TableRow key={`${dataElement.id}-row`}
+                            
+                            style ={{backgroundColor: selectedRow === dataElement.id ? 'lightblue' : 'white'}}>
                                 <TableCell>
                                     {index + 1}
                                 </TableCell>
-                                <TableCell>
+                                <div onClick = {(event)=> handleRowClick(dataElement.id)}>
+                                <TableCell >
                                     {dataElement.name}
                                 </TableCell>
+                                </div>
+                                
                                 <TableCell>
                                     {dataElement.status}
                                 </TableCell>
