@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "d2-app-scripts build",
-    "start": "dotenv -- cross-var d2-app-scripts start --proxy %DHIS2_PROXY_URL%",
+    "start": "cross-var dotenv d2-app-scripts start --proxy %DHIS2_PROXY_URL%",
     "test": "d2-app-scripts test",
     "deploy": "d2-app-scripts deploy"
   },
@@ -18,15 +18,14 @@
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.9.0",
-    "@dhis2/cli": "^4.2.3",
     "@dhis2/ui": "^8.13.6",
     "@hisptz/dhis2-utils": "^1.0.42",
     "csvtojson": "^2.0.10",
     "file-saver": "^2.0.5",
     "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
-    "intro.js": "5.0.0",
-    "intro.js-react": "0.5.0",
+    "intro.js": "7.0.1",
+    "intro.js-react": "1.0.0",
     "jspdf": "^2.5.1",
     "plotly.js": "^2.22.0",
     "react-hook-form": "^7.44.2",

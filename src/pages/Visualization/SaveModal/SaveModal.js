@@ -56,7 +56,7 @@ export function SaveModal({
       },
       name,
       status,
-      createdAt: new Date().toI(),
+      createdAt: new Date().toLocaleTimeString(),
     };
 
     try {

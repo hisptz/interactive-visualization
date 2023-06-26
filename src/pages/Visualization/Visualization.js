@@ -66,6 +66,8 @@ export function Visualization() {
   const {data,loading,error}=useDataQuery(query,{variables:{id}, onError: ()=>{}})
 
   const [state, setState] = useState();
+  const [pdfData, setPdfdata] = useState([]);
+  const[pngData, setPngData] = useState([]);
   const [openHelper, setOpenHelper] = useState(false);
   const visualizationData =  useMemo(()=> data?.dE?.config ?? {data: JSON.parse(localStorage.getItem(id))}, [data]);
 
@@ -81,26 +83,22 @@ export function Visualization() {
 
   const pivotTableRef = useRef(null);
 
-  const handleExportPNG = () => {
-    console.log(pivotTableRef);
-    html2canvas(pivotTableRef.current).then((canvas) => {
-      const image = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = image;
-      link.download = 'pivot-table.png';
-      link.click();
-    });
-  };
+const handleExportPNG = () => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 500;
+  canvas.height = 500;
+  const ctx = canvas.getContext('2d');
+  const table = new PDFTable(pngData);
+  table.draw(ctx);
+  const png = png.encode(canvas);
+  setPngData(png.data);
+}  
 
-  const handleExportPDF = () => {
-    html2canvas(pivotTableRef.current).then((canvas) => {
-      const image = canvas.toDataURL('image/png');
-      const pdf = new jsPDF();
-      pdf.addImage(image, 'PNG', 0, 0);
-      pdf.save('pivot-table.pdf');
-    });
-    
-  };
+const handleExportPDF = () =>{
+  const pdf = new jsPDF();
+  pdf.addImage(new PDFTable(pdfData));
+  pdf.save('pivottable.pdf');
+};
 
   // const [onClose, setOnClose] = useState('false');
   const [onHide, setOnHide] = useState(false);
