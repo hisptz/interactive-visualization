@@ -42,7 +42,11 @@ export function DataElementTable(){
 
     if (loading) {
         return (
-            <div >
+            <div style={{display:"flex", 
+            justifyContent:"center",
+            alignItems:"center",
+            height:"100vh",
+            gap:7}}>
                 <CircularLoader small/>
                 <h3>Loading data elements</h3>
             </div>
@@ -60,7 +64,7 @@ export function DataElementTable(){
    
 
     return (
-        <div style={{padding: 32}} >
+        <div>
             
             <Table>
                 <TableHead>
@@ -75,7 +79,7 @@ export function DataElementTable(){
                             Status
                         </TableCellHead>
                         <TableCellHead>
-                            CreatedAt
+                            Date Created
                         </TableCellHead>
                     </TableRowHead>
                 </TableHead>
@@ -106,6 +110,7 @@ export function DataElementTable(){
                     }
                 </TableBody>
             </Table>
+            <Pagination disabled isFirstPage page={1} pageSize={10} />
             
         </div>
     )

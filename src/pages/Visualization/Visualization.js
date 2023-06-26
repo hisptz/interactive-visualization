@@ -152,8 +152,7 @@ const handleExportPDF = () =>{
                 display: "flex",
               }}
             >
-              This will display the title of the data file Visualized {id},to{" "}
-              {params.pe} {params.ou}!
+              {id}
             </h1>
 
             <div
