@@ -75,6 +75,7 @@ export function Visualization() {
   const params = useParams();
   const navigate = useNavigate();
   const id = useMemo(() => params.id, [params.id]);
+
   const [state, setState] = useState({});
 
   const { data, loading, error } = useDataQuery(query, { variables: { id } });
@@ -120,7 +121,21 @@ export function Visualization() {
     setOnHide(true);
   };
   if (loading) {
-    return <CircularLoader large />;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <div>
+          <CircularLoader small/>
+        </div>
+        <h3>Loading visualization data</h3>
+      </div>
+    );
   }
 
   return (

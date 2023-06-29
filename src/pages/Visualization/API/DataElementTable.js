@@ -66,16 +66,18 @@ export function DataElementTable() {
           </TableRowHead>
         </TableHead>
         <TableBody>
-          {data?.entries?.map((dataElement, index) => (
-            <TableRow key={`${dataElement.id}-row`}>
-              <TableCell>{index + 1}</TableCell>
-              <div onClick={() => handleRowClick(dataElement.id)}>
-                <TableCell>{dataElement.name}</TableCell>
-              </div>
-              <TableCell>{dataElement.status}</TableCell>
-              <TableCell>{dataElement.createdAt}</TableCell>
-            </TableRow>
-          ))}
+          {data?.entries
+            ?.sort((data1, data2) => data2.createdAt > data1.createdAt)
+            .map((dataElement, index) => (
+              <TableRow key={`${dataElement.id}-row`}>
+                <TableCell>{index + 1}</TableCell>
+                <div onClick={() => handleRowClick(dataElement.id)}>
+                  <TableCell>{dataElement.name}</TableCell>
+                </div>
+                <TableCell>{dataElement.status}</TableCell>
+                <TableCell>{dataElement.createdAt}</TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div>
