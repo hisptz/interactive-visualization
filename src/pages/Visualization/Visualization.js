@@ -1,60 +1,102 @@
 import PivotTableUI from "react-pivottable/PivotTableUI";
 import "react-pivottable/pivottable.css";
+import { Steps } from "intro.js-react";
+import "intro.js/introjs.css";
 import TableRenderers from "react-pivottable/TableRenderers";
-import { useState } from "react";
-import { Button, DropdownButton, FlyoutMenu, MenuItem } from "@dhis2/ui";
-//import createPlotlyComponent from 'react-plotly.js/factory';
+import { useState, useMemo, useEffect } from "react";
+import {
+  Button,
+  DropdownButton,
+  FlyoutMenu,
+  MenuItem,
+  CircularLoader,
+} from "@dhis2/ui";
+
 import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Plot from "react-plotly.js";
-//import styles from '../../App.module.css';
+
 import { container } from "plotly.js/src/traces/scatter/marker_colorbar";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import * as  htmlToImage from 'html-to-image';
-import { saveAs } from 'file-saver';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import * as htmlToImage from "html-to-image";
+import { saveAs } from "file-saver";
+import { useDataQuery } from "@dhis2/app-runtime";
+import SaveModal from "./SaveModal/SaveModal";
 
-
-// create Plotly React component via dependency injection
-// const Plot = createPlotlyComponent(window.Plotly);
-// "Visualize1", "Visualize2","Visualize3","Visualize4","Visualize5"
-// create Plotly renderers via dependency injection
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
+const steps = [
+  {
+    selector: "#help3",
+    intro:
+      "To begin analyzing the uploaded data, you can initiate the process by dragging and dropping the data variables presented in the top row into the empty row and column spaces located between them. This action enables you to arrange and organize the data variables in a way that facilitates analysis. ",
+  },
+  {
+    element: "#help4",
+    intro:
+      "To choose a specific type of visualization, you can click on the dropdown menu option. This allows you to select the desired visualization method from the available options. By clicking on the dropdown menu, you can easily explore and switch between different visualization types to suit your analysis needs.",
+  },
+  {
+    element: "#help5",
+    intro:
+      "To perform visualization using specific measures, you can select a measure from the dropdown menu located below the visualization technique. This allows you to choose the desired measure that you want to visualize in conjunction with the selected visualization technique.",
+  },
+  {
+    element: "#save",
+    intro:
+      'To save a data file to the system, simply click on the "Save" button. Then, provide the desired file name and specify its status. Once you have entered this information, proceed with the save action. By following these steps, you can easily store your data file in the system, ensuring it is properly labeled and categorized for future reference and analysis.',
+  },
+  {
+    element: "#dashboard",
+    intro:
+      'To add the visualization to the system dashboard, click on the "Dashboard" button. This action will allow you to push the visualization and display it on the designated dashboard within the DHIS2 system.',
+  },
+  {
+    element: "#save2",
+    intro:
+      "To modify the visualization, hover your mouse over the visualization. At the top-right side, you will find options to select various modifications, including zoom, pan, autoscale, and reset axes. By choosing the desired modification, you can adjust and customize the visualization according to your preferences and analysis requirements.",
+  },
+  {
+    element: "#setting",
+    intro: "FOR SETTINGS",
+  },
+];
 
 const query = {
   dE: {
-      resource: "dataStore/visualization",
-     id:({id})=>id
-
-  }
-}
-
+    resource: "dataStore/visualization",
+    id: ({ id }) => id,
+  },
+};
 
 export function Visualization() {
   const params = useParams();
   const navigate = useNavigate();
-  const id = params.id;
+  const id = useMemo(() => params.id, [params.id]);
   const [state, setState] = useState({});
 
-  const [loading, setLoading] = useState(false);
- 
+  const { data, loading, error } = useDataQuery(query, { variables: { id } });
+
   const [openHelper, setOpenHelper] = useState(false);
-  const visualizationData =  useMemo(()=> data?.dE?.config ?? {data: data?.dE?.config ?.data ?? JSON.parse(localStorage.getItem(id))?? []}, [data]);
+  const visualizationData = useMemo(
+    () =>
+      data?.dE?.config ?? {
+        data:
+          data?.dE?.config?.data ?? JSON.parse(localStorage.getItem(id)) ?? [],
+      },
+    [data]
+  );
 
-  console.log(state);
-  useEffect(()=>{
-     if(visualizationData){
-        setState({
-          ...visualizationData
-        })
-     }
-  }, [visualizationData])
+  useEffect(() => {
+    if (visualizationData) {
+      setState({
+        ...visualizationData,
+      });
+    }
+  }, [visualizationData]);
 
-
-
- 
   //Export PDF
   const handleDownload = () => {
     const tableElement = document.querySelector(".pvtUi");
@@ -78,15 +120,10 @@ export function Visualization() {
     setOnHide(true);
   };
   if (loading) {
-    return (
-      <CircularLoader large />  
-    )
+    return <CircularLoader large />;
   }
 
   return (
-  
-    
-  
     <>
       <div
         id="main"
@@ -172,15 +209,25 @@ export function Visualization() {
                       paddingLeft: "100px",
                       position: "absolute",
                     }}
-                    name=" button" onClick={handleDownload}
-                    value="default"
+                    name=" button"
+                    onClick={HandleModal}
                   >
                     Save
                   </Button>
+                  {onHide && (
+                    <SaveModal
+                      edit={data?.dE !== undefined}
+                      defaultValue={data?.dE}
+                      config={state}
+                      id={id}
+                      hide={!onHide}
+                      onClose={() => setOnHide(false)}
+                    />
+                  )}
                   <DropdownButton
                     component={
                       <FlyoutMenu>
-                        <MenuItem label="PNG" onClick={()=>{}}/>
+                        <MenuItem label="PNG" onClick={() => {}} />
                         <MenuItem label="PDF" onClick={handleDownload} />
                       </FlyoutMenu>
                     }
@@ -190,7 +237,6 @@ export function Visualization() {
                   >
                     Export
                   </DropdownButton>
-                  
 
                   <Button name="Disabled button" value="default">
                     Dashboard
