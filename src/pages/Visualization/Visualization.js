@@ -1,15 +1,25 @@
 import PivotTableUI from "react-pivottable/PivotTableUI";
 import "react-pivottable/pivottable.css";
-import { useState, useMemo, useEffect } from "react";
-import { Button,ButtonStrip,DropdownButton,Field,FlyoutMenu,Input,MenuItem,CircularLoader,Modal,ModalActions,ModalContent,ModalTitle,SingleSelectField,SingleSelectOption}from "@dhis2/ui";
+import TableRenderers from "react-pivottable/TableRenderers";
+import { useState } from "react";
+import { Button, DropdownButton, FlyoutMenu, MenuItem } from "@dhis2/ui";
+//import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Plot from "react-plotly.js";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
-import  SaveModal  from "./SaveModal/SaveModal";
+//import styles from '../../App.module.css';
+import { container } from "plotly.js/src/traces/scatter/marker_colorbar";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import * as  htmlToImage from 'html-to-image';
+import { saveAs } from 'file-saver';
+
+
+// create Plotly React component via dependency injection
+// const Plot = createPlotlyComponent(window.Plotly);
+// "Visualize1", "Visualize2","Visualize3","Visualize4","Visualize5"
+// create Plotly renderers via dependency injection
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
 
@@ -25,10 +35,11 @@ const query = {
 export function Visualization() {
   const params = useParams();
   const navigate = useNavigate();
-  const id = useMemo(()=> params.id, [params]);
-  const {data,loading,error}=useDataQuery(query,{variables:{id}, onError: ()=>{}})
+  const id = params.id;
+  const [state, setState] = useState({});
 
-  const [state, setState] = useState();
+  const [loading, setLoading] = useState(false);
+ 
   const [openHelper, setOpenHelper] = useState(false);
   const visualizationData =  useMemo(()=> data?.dE?.config ?? {data: data?.dE?.config ?.data ?? JSON.parse(localStorage.getItem(id))?? []}, [data]);
 
@@ -102,7 +113,7 @@ export function Visualization() {
             name="Basic button"
             value="default"
           >
-            Back
+            Go Back
           </Button>
           <div
             id="2"
@@ -129,7 +140,7 @@ export function Visualization() {
                 display: "flex",
                 justifyContent: "center",
                 position: "relative",
-                paddingBottom: 5,
+                paddingBottom: 20,
                 //width:'100%',
                 margin: "10px 50px 10px 50px",
               }}
@@ -142,7 +153,7 @@ export function Visualization() {
                   boxShadow: "0px 0px 7px 7px rgba(0,0,0,0.3)",
                   position: "relative",
                   padding: "5px 10px 5px 5px",
-                  margin: "5px 50px 5px 50px",
+                  margin: "10px 50px 10px 50px",
                 }}
               >
                 <div
@@ -156,27 +167,20 @@ export function Visualization() {
                     paddingTop: 5,
                   }}
                 >
-                  <>
-                    <Button
-                      style={{
-                        paddingLeft: "100px",
-                        position: "absolute",
-                      }}
-                      name=" button"
-                      onClick={HandleModal}
-                      // value="default"
-                  
-                    >
-                      {data?.dE !== undefined ? "Update": "Save"}
-                    </Button>
-                    {onHide && (
-                            <SaveModal edit={data?.dE !== undefined} defaultValue={data?.dE} config={state}  id={id} hide={!onHide} onClose={() => setOnHide(false)} />
-                    )}
-                  </>
+                  <Button
+                    style={{
+                      paddingLeft: "100px",
+                      position: "absolute",
+                    }}
+                    name=" button" onClick={handleDownload}
+                    value="default"
+                  >
+                    Save
+                  </Button>
                   <DropdownButton
                     component={
                       <FlyoutMenu>
-                        <MenuItem label="PNG" onClick={() => {}} />
+                        <MenuItem label="PNG" onClick={()=>{}}/>
                         <MenuItem label="PDF" onClick={handleDownload} />
                       </FlyoutMenu>
                     }
@@ -186,8 +190,28 @@ export function Visualization() {
                   >
                     Export
                   </DropdownButton>
+                  
+
+                  <Button name="Disabled button" value="default">
+                    Dashboard
+                  </Button>
+                  <Steps
+                    steps={steps}
+                    enabled={openHelper}
+                    onExit={() => setOpenHelper(false)}
+                    initialStep={0}
+                  />
+                  <Button
+                    id="help3"
+                    name="Disabled button"
+                    value="default"
+                    onClick={() => setOpenHelper(true)}
+                  >
+                    Help
+                  </Button>
                 </div>
                 <PivotTableUI
+                  data={data}
                   onChange={(s) => setState(s)}
                   renderers={Object.assign({}, PlotlyRenderers)}
                   {...state}

@@ -48,13 +48,7 @@ const query = {
 
 
 
-export function API(){
 
-   
-   
-   
-
-}
 
 
 
@@ -72,7 +66,10 @@ export function Visualizations() {
 
     if (loading) {
         return (
-            <div >
+            <div style={{display:"flex", 
+            justifyContent:"center",
+            alignItems:"center",
+            height:"100vh"}}>
                 <CircularLoader small/>
                 <h3>Loading data elements</h3>
             </div>
@@ -144,9 +141,6 @@ export function Visualizations() {
                         <DataElementTable/>
                     </div>
                 </div>
-            <div className={styles.back}>
-                <Button onClick={() => navigate('45')}>Start Visualizing</Button>
-            </div>
         </div>
 
     )
