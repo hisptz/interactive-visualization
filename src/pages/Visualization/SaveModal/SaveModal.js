@@ -1,20 +1,6 @@
-import {
-  Button,
-  ButtonStrip,
-  DropdownButton,
-  Field,
-  FlyoutMenu,
-  InputField,
-  MenuItem,
-  Modal,
-  ModalActions,
-  ModalContent,
-  ModalTitle,
-  SingleSelectField,
-  SingleSelectOption,
-} from "@dhis2/ui";
+import {Button,ButtonStrip,InputField,Modal,ModalActions,ModalContent,ModalTitle,SingleSelectField,SingleSelectOption,} from "@dhis2/ui";
 import { FormProvider, useForm, Controller } from "react-hook-form";
-import { useDataMutation } from "@dhis2/app-runtime";
+import { useDataMutation, useAlert } from "@dhis2/app-runtime";
 
 const createMutation = (id) => ({
   type: "create",
@@ -28,14 +14,22 @@ const updateMutation = {
   data: ({ data }) => data,
 };
 
-export function SaveModal({ onClose, hide, config, id, edit, defaultValue, setOnHide  }) {
+export function SaveModal({
+  onClose,
+  hide,
+  config,
+  id,
+  edit,
+  defaultValue,
+  setOnHide,
+}) {
   const [create, { loading: creating }] = useDataMutation(createMutation(id));
   const [update, { loading: updating }] = useDataMutation(updateMutation);
+  const { show } = useAlert(edit ? "Successfully Update" : "Successfully Save", { duration: 3000 });
 
   const form = useForm({
     defaultValues: defaultValue,
   });
-
 
   const onSave = async ({ name, status }) => {
     const payload = {
@@ -49,10 +43,9 @@ export function SaveModal({ onClose, hide, config, id, edit, defaultValue, setOn
       },
       name,
       status,
-      createdAt: new Date().toISOString(),
-      
+      createdAt: new Date().toLocaleDateString(),
     };
-    console.log(payload)
+    console.log(payload);
     try {
       if (edit) {
         await update({
@@ -64,20 +57,18 @@ export function SaveModal({ onClose, hide, config, id, edit, defaultValue, setOn
           data: payload,
         });
       }
-  
+
       onClose(); // Close the modal after saving or updating
-      window.alert("Save/update successful!"); // Display an alert
+      // window.alert("Save/update successful!");
+      show();
+      // Display an alert
     } catch (error) {
       console.error("Error saving/updating data:", error);
     }
   };
- 
-
-  
-  
 
   return (
-    <Modal onClose={onClose} >
+    <Modal onClose={onClose}>
       <ModalTitle>
         <ModalTitle>Save the Data</ModalTitle>
       </ModalTitle>
@@ -135,6 +126,5 @@ export function SaveModal({ onClose, hide, config, id, edit, defaultValue, setOn
       </ModalActions>
     </Modal>
   );
-};
+}
 export default SaveModal;
-

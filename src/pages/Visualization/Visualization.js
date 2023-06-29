@@ -1,7 +1,5 @@
 import PivotTableUI from "react-pivottable/PivotTableUI";
 import "react-pivottable/pivottable.css";
-import "intro.js/introjs.css";
-import { Steps } from "intro.js-react";
 import { useState, useMemo, useEffect } from "react";
 import { Button,ButtonStrip,DropdownButton,Field,FlyoutMenu,Input,MenuItem,CircularLoader,Modal,ModalActions,ModalContent,ModalTitle,SingleSelectField,SingleSelectOption}from "@dhis2/ui";
 import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
@@ -14,42 +12,7 @@ import { useDataMutation, useDataQuery } from "@dhis2/app-runtime";
 import  SaveModal  from "./SaveModal/SaveModal";
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
-const steps = [
-  {
-    selector: "#help3",
-    intro:
-      "To begin analyzing the uploaded data, you can initiate the process by dragging and dropping the data variables presented in the top row into the empty row and column spaces located between them. This action enables you to arrange and organize the data variables in a way that facilitates analysis. ",
-  },
-  {
-    element: "#help4",
-    intro:
-      "To choose a specific type of visualization, you can click on the dropdown menu option. This allows you to select the desired visualization method from the available options. By clicking on the dropdown menu, you can easily explore and switch between different visualization types to suit your analysis needs.",
-  },
-  {
-    element: "#help5",
-    intro:
-      "To perform visualization using specific measures, you can select a measure from the dropdown menu located below the visualization technique. This allows you to choose the desired measure that you want to visualize in conjunction with the selected visualization technique.",
-  },
-  {
-    element: "#save",
-    intro:
-      'To save a data file to the system, simply click on the "Save" button. Then, provide the desired file name and specify its status. Once you have entered this information, proceed with the save action. By following these steps, you can easily store your data file in the system, ensuring it is properly labeled and categorized for future reference and analysis.',
-  },
-  {
-    element: "#dashboard",
-    intro:
-      'To add the visualization to the system dashboard, click on the "Dashboard" button. This action will allow you to push the visualization and display it on the designated dashboard within the DHIS2 system.',
-  },
-  {
-    element: "#save2",
-    intro:
-      "To modify the visualization, hover your mouse over the visualization. At the top-right side, you will find options to select various modifications, including zoom, pan, autoscale, and reset axes. By choosing the desired modification, you can adjust and customize the visualization according to your preferences and analysis requirements.",
-  },
-  {
-    element: "#setting",
-    intro: "FOR SETTINGS",
-  },
-];
+
 const query = {
   dE: {
       resource: "dataStore/visualization",
@@ -67,7 +30,7 @@ export function Visualization() {
 
   const [state, setState] = useState();
   const [openHelper, setOpenHelper] = useState(false);
-  const visualizationData =  useMemo(()=> data?.dE?.config ?? {data: JSON.parse(localStorage.getItem(id))}, [data]);
+  const visualizationData =  useMemo(()=> data?.dE?.config ?? {data: data?.dE?.config ?.data ?? JSON.parse(localStorage.getItem(id))?? []}, [data]);
 
   console.log(state);
   useEffect(()=>{
@@ -77,6 +40,9 @@ export function Visualization() {
         })
      }
   }, [visualizationData])
+
+
+
  
   //Export PDF
   const handleDownload = () => {
@@ -94,21 +60,22 @@ export function Visualization() {
       })
       .catch((err) => console.log(err));
   };
+
   // const [onClose, setOnClose] = useState('false');
   const [onHide, setOnHide] = useState(false);
   const HandleModal = () => {
     setOnHide(true);
   };
-//   if (loading) {
-//     return (
-//         <div>
-//             <CircularLoader small/>
-//             <h3>Loading data elements</h3>
-//         </div>
-//     )
-// }
+  if (loading) {
+    return (
+      <CircularLoader large />  
+    )
+  }
 
   return (
+  
+    
+  
     <>
       <div
         id="main"
@@ -219,25 +186,6 @@ export function Visualization() {
                   >
                     Export
                   </DropdownButton>
-                  
-
-                  <Button name="Disabled button" value="default">
-                    Dashboard
-                  </Button>
-                  <Steps
-                    steps={steps}
-                    enabled={openHelper}
-                    onExit={() => setOpenHelper(false)}
-                    initialStep={0}
-                  />
-                  <Button
-                    id="help3"
-                    name="Disabled button"
-                    value="default"
-                    onClick={() => setOpenHelper(true)}
-                  >
-                    Help
-                  </Button>
                 </div>
                 <PivotTableUI
                   onChange={(s) => setState(s)}
