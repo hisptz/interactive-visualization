@@ -2,8 +2,7 @@ import PivotTableUI from "react-pivottable/PivotTableUI";
 import "react-pivottable/pivottable.css";
 import { Steps } from "intro.js-react";
 import "intro.js/introjs.css";
-import TableRenderers from "react-pivottable/TableRenderers";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import {
   Button,
   DropdownButton,
@@ -16,8 +15,6 @@ import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Plot from "react-plotly.js";
-
-import { container } from "plotly.js/src/traces/scatter/marker_colorbar";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import * as htmlToImage from "html-to-image";
@@ -97,10 +94,11 @@ export function Visualization() {
       });
     }
   }, [visualizationData]);
+  const pivotTableRef = useRef(null);
 
   //Export PDF
   const handleDownload = () => {
-    const tableElement = document.querySelector(".pvtUi");
+    const tableElement = document.querySelector(".js-plotly-plot");
 
     html2canvas(tableElement)
       .then((canvas) => {
@@ -115,7 +113,6 @@ export function Visualization() {
       .catch((err) => console.log(err));
   };
 
-  // const [onClose, setOnClose] = useState('false');
   const [onHide, setOnHide] = useState(false);
   const HandleModal = () => {
     setOnHide(true);
@@ -131,7 +128,7 @@ export function Visualization() {
         }}
       >
         <div>
-          <CircularLoader small/>
+          <CircularLoader small />
         </div>
         <h3>Loading visualization data</h3>
       </div>
@@ -242,7 +239,7 @@ export function Visualization() {
                   <DropdownButton
                     component={
                       <FlyoutMenu>
-                        <MenuItem label="PNG" onClick={() => {}} />
+                        <MenuItem label="PNG" onClick={()=>{}} />
                         <MenuItem label="PDF" onClick={handleDownload} />
                       </FlyoutMenu>
                     }

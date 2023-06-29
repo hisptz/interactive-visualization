@@ -1,16 +1,7 @@
 import { useDataQuery, DataQuery } from "@dhis2/app-runtime";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import {
-  CircularLoader,
-  Table,
-  TableBody,
-  TableCell,
-  TableCellHead,
-  TableHead,
-  TableRow,
-  TableRowHead,
-} from "@dhis2/ui";
+import {CircularLoader,Table,TableBody,TableCell,TableCellHead,TableHead,TableRow,TableRowHead,} from "@dhis2/ui";
 
 const query = {
   dE: {
@@ -29,7 +20,8 @@ const query = {
 
 export function DataElementTable() {
   const queryData = useDataQuery(query);
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const[selectedRow, setSelectedRow] = useState(null);
   const handleRowClick = (rowId) => {
     navigate(`${rowId}`);
   };
