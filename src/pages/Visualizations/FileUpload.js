@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {uid} from '@hisptz/dhis2-utils'
+import {uid} from "@hisptz/dhis2-utils"
 import * as XLSX from 'xlsx';
 import { read, utils } from 'read-excel-file';
 import csvtojson from 'csvtojson';
@@ -71,7 +71,7 @@ const FileUploader = () => {
             return;
         }
 
-        const fileId = uid();
+        const fileId = uid()
 
         localStorage.setItem(fileId, JSON.stringify(data));
         navigate(`${fileId}`)
@@ -84,4 +84,3 @@ const FileUploader = () => {
 };
 
 export default FileUploader;
-
