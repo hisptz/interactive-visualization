@@ -29,7 +29,7 @@ const query = {
 
 export function DataElementTable() {
   const queryData = useDataQuery(query);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleRowClick = (rowId) => {
     navigate(`${rowId}`);
   };
@@ -37,7 +37,7 @@ export function DataElementTable() {
   const loading = queryData.loading;
   const error = queryData.error;
 
-  if (loading) { 
+  if (loading) {
     return (
       <div>
         <CircularLoader small />
