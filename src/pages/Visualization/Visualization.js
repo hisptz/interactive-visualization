@@ -180,8 +180,7 @@ export function Visualization() {
                 display: "flex",
               }}
             >
-              This will display the title of the data file Visualized {id},to{" "}
-              {params.pe} {params.ou}!
+              {id}
             </h1>
 
             <div
@@ -224,7 +223,7 @@ export function Visualization() {
                     name=" button"
                     onClick={HandleModal}
                   >
-                    Save
+                    {data?.dE !== undefined ? "Update": "Save"}
                   </Button>
                   {onHide && (
                     <SaveModal
@@ -250,9 +249,6 @@ export function Visualization() {
                     Export
                   </DropdownButton>
 
-                  <Button name="Disabled button" value="default">
-                    Dashboard
-                  </Button>
                   <Steps
                     steps={steps}
                     enabled={openHelper}
