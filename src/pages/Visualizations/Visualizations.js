@@ -16,7 +16,7 @@ const steps = [
     },
     {
         element: '#back1',
-        intro: "To visualize data already saved in the system, simply select a row from the table. This feature empowers users to conveniently analyze and gain insights from the existing data, enhancing their data visualization and exploration capabilities within the app."
+        intro: "To visualize data that is already saved in the system, simply select a row from the table. This feature empowers users to conveniently analyze and gain insights from the already saved data, enhancing their data visualization and exploration capabilities within the app."
     },
 ]
 import { useDataMutation, useDataQuery} from '@dhis2/app-runtime';
