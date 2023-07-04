@@ -54,7 +54,7 @@ export function DataElementTable() {
             <TableCellHead>No</TableCellHead>
             <TableCellHead>Name</TableCellHead>
             <TableCellHead>Status</TableCellHead>
-            <TableCellHead>CreatedAt</TableCellHead>
+            <TableCellHead>Date Created</TableCellHead>
           </TableRowHead>
         </TableHead>
         <TableBody>
