@@ -45,7 +45,7 @@ We would like to acknowledge:
 For inquiries and information, please contact:
 - Joseph Mwacha
   - Email: jmwacha0076@gmail.com
-  - Phone: +255689345140
+  - Phone: +255 689 345 140 /+255 689 345 149
 - Fatma Ally
   - Email: fatma.ally654@gmail.com
   - Phone: +255 679 900 938
