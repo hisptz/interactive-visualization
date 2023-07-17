@@ -33,7 +33,7 @@ export function DataElementTable() {
     return (
       <div>
         <CircularLoader small />
-        <h3>Loading data elements</h3>
+        <h3>Loading data</h3>
       </div>
     );
   }
