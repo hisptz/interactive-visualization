@@ -71,7 +71,7 @@ export function Visualizations() {
             alignItems:"center",
             height:"100vh"}}>
                 <CircularLoader small/>
-                <h3>Loading data elements</h3>
+                <h3>Loading data</h3>
             </div>
         )
     }
