@@ -28,36 +28,36 @@ const steps = [
   {
     selector: "#help3",
     intro:
-      "To begin analyzing the uploaded data, you can initiate the process by dragging and dropping the data variables presented in the top row into the empty row and column spaces located between them. This action enables you to arrange and organize the data variables in a way that facilitates analysis. ",
+      "To begin analyzing the uploaded data, you can initiate the process by dragging and dropping the data variables presented in the top row into the empty row and column space located between them. This action enables you to manipulate the data variables in a way that facilitates analysis. ",
   },
   {
     element: "#help4",
     intro:
-      "To choose a specific type of visualization, you can click on the dropdown menu option. This allows you to select the desired visualization method from the available options. By clicking on the dropdown menu, you can easily explore and switch between different visualization types to suit your analysis needs.",
+      "To choose a specific type of visualization, you can click on the dropdown menu option. This allows you to select the desired type of visualization from the available options. By clicking on the dropdown menu, you can easily explore and switch between different visualization types to suit your analysis needs.",
   },
   {
     element: "#help5",
     intro:
-      "To perform visualization using specific measures, you can select a measure from the dropdown menu located below the visualization technique. This allows you to choose the desired measure that you want to visualize in conjunction with the selected visualization technique.",
+      "To perform visualization using specific measures, you can select a measure from the dropdown menu located below the visualization dropdown menu  . This allows you to choose the desired measure that you want to visualize in conjunction with the selected visualization technique.",
   },
   {
     element: "#save",
     intro:
-      'To save a data file to the system, simply click on the "Save" button. Then, provide the desired file name and specify its status. Once you have entered this information, proceed with the save action. By following these steps, you can easily store your data file in the system, ensuring it is properly labeled and categorized for future reference and analysis.',
+      'To save a data file to the system, simply click on the "Save" button. Then, provide the desired file name and specify its status. Once you have entered this information, proceed with the save action. By following these steps, you can easily store your data file in the system, ensuring it is properly labeled and categorized for future reference.',
   },
-  {
-    element: "#dashboard",
-    intro:
-      'To add the visualization to the system dashboard, click on the "Dashboard" button. This action will allow you to push the visualization and display it on the designated dashboard within the DHIS2 system.',
-  },
+  // {
+  //   element: "#dashboard",
+  //   intro:
+  //     'To add the visualization to the system dashboard, click on the "Dashboard" button. This action will allow you to push the visualization and display it on the designated dashboard within the DHIS2 system.',
+  // },
   {
     element: "#save2",
     intro:
       "To modify the visualization, hover your mouse over the visualization. At the top-right side, you will find options to select various modifications, including zoom, pan, autoscale, and reset axes. By choosing the desired modification, you can adjust and customize the visualization according to your preferences and analysis requirements.",
   },
   {
-    element: "#setting",
-    intro: "FOR SETTINGS",
+    element: "#export",
+    intro: "To export a visualization locally, click the 'Export' button and select either, PDF or PNG format. You can also use hover your mouse over the visualization and select the Camera icon to download the plot as a PNG.",
   },
 ];
 
@@ -108,7 +108,7 @@ export function Visualization() {
         const height = pdf.internal.pageSize.getHeight();
 
         pdf.addImage(imgData, "PNG", 0, 0, width, height);
-        pdf.save("pivot_table.pdf");
+        pdf.save("Interactive Visualization.pdf");
       })
       .catch((err) => console.log(err));
   };
@@ -162,7 +162,7 @@ export function Visualization() {
             name="Basic button"
             value="default"
           >
-            Go Back
+              Back
           </Button>
           <div
             id="2"

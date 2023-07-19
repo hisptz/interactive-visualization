@@ -111,7 +111,7 @@ export function SaveModal({
                     {...field}
                     onChange={({ selected }) => field.onChange(selected)}
                     label="Status"
-                    placeholder="status"
+                    placeholder="Status"
 
                     //   onChange={onChange}
                   >

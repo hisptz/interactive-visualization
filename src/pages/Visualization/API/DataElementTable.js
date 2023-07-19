@@ -33,7 +33,7 @@ export function DataElementTable() {
     return (
       <div>
         <CircularLoader small />
-        <h3>Loading data elements</h3>
+        <h3>Loading data</h3>
       </div>
     );
   }
@@ -54,7 +54,7 @@ export function DataElementTable() {
             <TableCellHead>No</TableCellHead>
             <TableCellHead>Name</TableCellHead>
             <TableCellHead>Status</TableCellHead>
-            <TableCellHead>CreatedAt</TableCellHead>
+            <TableCellHead>Date Created</TableCellHead>
           </TableRowHead>
         </TableHead>
         <TableBody>

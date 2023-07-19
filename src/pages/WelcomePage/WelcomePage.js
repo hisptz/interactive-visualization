@@ -8,7 +8,7 @@ const steps = [
   {
     selector: "#help1",
     intro:
-      "The Interactive Visualization Tool enhances DHIS2 by enabling users to analyze external data sources not found within the DHIS2 warehouse. With interactive visualizations, users can gain valuable insights and discover patterns, expanding their data analysis capabilities and empowering informed decision-making.",
+      "The Interactive Visualization Tool enhances the DHIS2 platform by enabling users to analyze external data sources that are not found within the DHIS2 warehouse. With this tool, users can gain valuable insights and discover patterns, expanding their data analysis capabilities and empowering informed decision-making.",
   },
 ];
 
