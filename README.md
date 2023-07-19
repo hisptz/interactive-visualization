@@ -1,73 +1,56 @@
-This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
+# Integration of Interactive Visualization Web App in the DHIS2 System
 
-### `Steps to run the project`
+## Table of Contents
+- [Project Description](#project-description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
 
-1. Clone the project
-2. Navigate to the directory 'interactive-visualization'
-3. Run 'yarn' to install all the dependencies
-4. Create an .env file in the same path as that of the .env.example
-5. Fill the credentials of the Proxy and Server as required
-6. Run 'yarn start' to start the project  
+## Project Description
+This software project aims to enhance the visualization and analysis capabilities of external data that doesn't exist within the DHIS2 warehouse. It enables DHIS2 users to upload CSV, JSON, and Excel files (up to 2MB) for visualization and analysis. The web app also provides additional functionalities such as data saving, updating, and downloading visualizations in PNG and PDF formats.
 
+## Project Repository
+The project repository can be found at: [https://github.com/hisptz/interactive-visualization](https://github.com/hisptz/interactive-visualization)
 
+## Installation
+To install and run the project, follow these steps:
+1. Clone the project repository.
+2. Navigate to the 'interactive-visualization' directory.
+3. Run 'yarn' to install all the dependencies.
+4. Create an .env file in the same directory as .env.example.
+5. Fill in the required credentials for the Proxy and Server.
+6. Run 'yarn start' to start the project.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Usage
+To use the system:
+1. Login with the default username "admin" and password "district".
+2. Use the helper button for step-by-step instructions.
 
-### `yarn test`
+## Features
+The project offers the following features:
+1. Data handling capability: Upload and process CSV, JSON, and Excel files.
+2. Visualization and manipulation capability: Visualize and analyze uploaded data.
+3. Data saving and exportation capability: Save, update, and download visualizations in PNG and PDF formats.
 
-Launches the test runner and runs all available tests found in `/src`.<br />
+## Acknowledgements
+We would like to acknowledge:
+- Dr. Wilfred Senyoni (Supervisor)
+- FYP Panelist, Panel Number 5
+- HISP Tanzania (Clients)
+- UDSM-DHIS2 Lab
 
-See the section about [running tests](https://platform.dhis2.nu/#/scripts/test) for more information.
+## Contact
+For inquiries and information, please contact:
+- Joseph Mwacha
+  - Email: jmwacha0076@gmail.com
+  - Phone: +255 689 345 140 /+255 689 345 149
+- Fatma Ally
+  - Email: fatma.ally654@gmail.com
+  - Phone: +255 679 900 938
+- Erick Lawenja
+  - Email: ericklawenja@gmail.com
+  - Phone: +255 717 973 387
 
-
-
-
-
-
-
-
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner and runs all available tests found in `/src`.<br />
-
-See the section about [running tests](https://platform.dhis2.nu/#/scripts/test) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-A deployable `.zip` file can be found in `build/bundle`!
-
-See the section about [building](https://platform.dhis2.nu/#/scripts/build) for more information.
-
-### `yarn deploy`
-
-Deploys the built app in the `build` folder to a running DHIS2 instance.<br />
-This command will prompt you to enter a server URL as well as the username and password of a DHIS2 user with the App Management authority.<br/>
-You must run `yarn build` before running `yarn deploy`.<br />
-
-See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) for more information.
-
-## Learn More
-
-You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).
-
-You can learn more about the runtime in the [DHIS2 Application Runtime Documentation](https://runtime.dhis2.nu/).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Feel free to reach out to us with any questions or feedback you may have regarding the project.
