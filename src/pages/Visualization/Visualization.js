@@ -180,7 +180,7 @@ export function Visualization() {
                 display: "flex",
               }}
             >
-              {id}
+              {data?.dE.name}
             </h1>
 
             <div
